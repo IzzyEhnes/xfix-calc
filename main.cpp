@@ -46,7 +46,8 @@ int evaluateInfix(std::string inExpression)
 	for (int count = 0; count < length; count++)
 	{
 		if (postfixExp[count] == '+' || postfixExp[count] == '-' ||
-		    postfixExp[count] == '*' || postfixExp[count] == '/')
+		    postfixExp[count] == '*' || postfixExp[count] == '/' ||
+			postfixExp[count] == '^')
 		{
 			operand2 = calc_stack.top();
 			calc_stack.pop();
@@ -72,6 +73,9 @@ int evaluateInfix(std::string inExpression)
 				case '/':
 					result = operand1 / operand2;
 					break;
+
+				case '^':
+					result = operand1 ^ operand2;
 			}
 
 			calc_stack.push(result);
