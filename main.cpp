@@ -28,11 +28,13 @@
 // Main functions
 double evaluatePostfix(std::string inExpression);
 std::string infixToPostfix(std::string inExpression);
+std::string infixToPrefix(std::string inExpression);
 
 // Helper functions
 int precedenceCheck(char inOperator);
 bool isOperator(char inChar);
 double calculate(double operand1, double operand2, char symbol);
+std::string reverse(std::string &inExpression);
 
 
 
@@ -90,6 +92,39 @@ double calculate(double operand1, double operand2, char symbol)
 	}
 
 	return result;
+}
+
+
+
+
+
+std::string reverse(std::string &inExpression)
+{
+	int length = inExpression.length();
+
+	// Changes open parentheses to closed parentheses and vice versa
+	for (int i = 0; i < length; i++)
+	{
+		if (inExpression[i] == '(')
+		{
+			inExpression[i] = ')';
+		}
+
+		else if (inExpression[i] == ')')
+		{
+			inExpression[i] = '(';
+		}
+	}
+
+	// Reverses the string
+	for (int count = 0; count < length/2; count++)
+	{
+		char temp = inExpression[count];
+		inExpression[count] = inExpression[length - 1 - count];
+		inExpression[length - 1 - count] = temp;
+	}
+
+	return inExpression;
 }
 
 
@@ -308,6 +343,25 @@ std::string infixToPostfix(std::string infixString)
 
 
 
+std::string infixToPrefix(std::string infixString)
+{
+	std::stack<char> operatorStack;
+	std::stack<char> operandStack;
+	std::string postfixExp = "";
+	std::string prefixExp = "";
+	std::string reversedExp = reverse(infixString);
+
+	postfixExp = infixToPostfix(reversedExp);
+	prefixExp = reverse(postfixExp);
+
+	return prefixExp;
+}
+
+
+
+
+
+
 
 int main()
 {
@@ -364,9 +418,53 @@ int main()
 
 
 
-	std::cout << "\n\n\n****************************************\n";
-	std::cout << "* Testing of function \"evaluatePostfix\"  *\n";
-	std::cout << "****************************************\n";
+	std::cout << "\n\n\n***************************************\n";
+	std::cout << "* Testing of function \"infixToPrefix\" *\n";
+	std::cout << "***************************************\n";
+
+	std::cout << std::endl;
+	string1 = "A + B";
+	std::cout << "Infix expression: ";
+	std::cout << string1 << std::endl;
+	std::cout << "After conversion to prefix, the expression is now: ";
+	std::cout << infixToPrefix(string1) << std::endl;
+
+	std::cout << std::endl;
+	string2 = "(A + B) * (C - D)";
+	std::cout << "Infix expression: ";
+	std::cout << string2 << std::endl;
+	std::cout << "After conversion to prefix, the expression is now: ";
+	std::cout << infixToPrefix(string2) << std::endl;
+
+	std::cout << std::endl;
+	string3 = "A - (B + C * D) / E";
+	std::cout << "Infix expression: ";
+	std::cout << string3 << std::endl;
+	std::cout << "After conversion to prefix, the expression is now: ";
+	std::cout << infixToPrefix(string3) << std::endl;
+
+	std::cout << std::endl;
+	string4 = "A ^ B / C * (D + E)";
+	std::cout << "Infix expression: ";
+	std::cout << string4 << std::endl;
+	std::cout << "After conversion to prefix, the expression is now: ";
+	std::cout << infixToPrefix(string4) << std::endl;
+
+	std::cout << std::endl;
+	string5 = "A + B * (C - D ^ E) / F ^ G";
+	std::cout << "Infix expression: ";
+	std::cout << string5 << std::endl;
+	std::cout << "After conversion to prefix, the expression is now: ";
+	std::cout << infixToPrefix(string5) << std::endl;
+
+
+
+
+
+
+	std::cout << "\n\n\n*****************************************\n";
+	std::cout << "* Testing of function \"evaluatePostfix\" *\n";
+	std::cout << "*****************************************\n";
 
 	std::cout << std::endl;
 	string1 = "10 + 243";
