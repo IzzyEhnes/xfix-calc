@@ -16,15 +16,42 @@
 */
 
 
+
 #include <iostream>
 #include <stack>
 #include <cctype>
 #include <string>
 
 
+
+// Main functions
 int evaluateInfix(std::string inExpression);
 std::string infixToPostfix(std::string inExpression);
-bool precedenceCheck(char inOperator);
+
+// Helper functions
+int precedenceCheck(char inOperator);
+bool isOperator(char inChar);
+
+
+
+bool isOperator(char inChar)
+{
+	switch(inChar)
+	{
+		case '+':
+		case '-':
+		case '*':
+		case '/':
+		case '^':
+			return true;
+
+		default:
+			return false;
+	}
+}
+
+
+
 
 
 
@@ -35,7 +62,7 @@ bool precedenceCheck(char inOperator);
 **************************************************/
 int evaluateInfix(std::string inExpression)
 {
-	std::string postfixExp = infixToPostfix(inExpression);
+	std::string postfixString = infixToPostfix(inExpression);
 
 	std::stack<int> calc_stack;
 
@@ -45,9 +72,9 @@ int evaluateInfix(std::string inExpression)
 
 	for (int count = 0; count < length; count++)
 	{
-		if (postfixExp[count] == '+' || postfixExp[count] == '-' ||
-		    postfixExp[count] == '*' || postfixExp[count] == '/' ||
-			postfixExp[count] == '^')
+		if (postfixString[count] == '+' || postfixString[count] == '-' ||
+		    postfixString[count] == '*' || postfixString[count] == '/' ||
+			postfixString[count] == '^')
 		{
 			operand2 = calc_stack.top();
 			calc_stack.pop();
@@ -56,7 +83,7 @@ int evaluateInfix(std::string inExpression)
 			calc_stack.pop();
 
 			int result = 0;
-			switch(postfixExp[count])
+			switch(postfixString[count])
 			{
 				case '+':
 					result = operand1 + operand2;
@@ -82,15 +109,15 @@ int evaluateInfix(std::string inExpression)
 		}
 
 
-		else if (isdigit(postfixExp[count]))
+		else if (isdigit(postfixString[count]))
 		{
 			int temp = 0;
 			int char_to_int;
-			int length = postfixExp.length();
+			int length = postfixString.length();
 
-			while (count < length && isdigit(postfixExp[count]))
+			while (count < length && isdigit(postfixString[count]))
 			{
-				char_to_int = postfixExp[count] - '0';
+				char_to_int = postfixString[count] - '0';
 				temp *= 10;
 				temp += char_to_int;
 
@@ -116,21 +143,27 @@ int evaluateInfix(std::string inExpression)
 * It returns '0' if inOperator is a '+' or '-' (lower precedence) *
 * and '1' if inOperator is a '*', '^', or '/' (higher precedence).*
 ******************************************************************/
-bool precedenceCheck(char inOperator)
+int precedenceCheck(char inOperator)
 {
-	int precedence;
-
-	if (inOperator == '+' || inOperator == '-')
+	if (inOperator == '^')
 	{
-		precedence = 0;
+		return 3;
 	}
 
-	else if (inOperator == '/' || inOperator == '*' || inOperator == '^')
+	else if (inOperator == '*' || inOperator == '/')
 	{
-		precedence = 1;
+		return 2;
 	}
 
-	return precedence;
+	else if (inOperator == '+' || inOperator == '-')
+	{
+		return 1;
+	}
+
+	else
+	{
+		return 0;
+	}
 }
 
 
@@ -142,94 +175,98 @@ bool precedenceCheck(char inOperator)
 * infixToPostfix converts the incoming infix expression, infixString, *
 * into postfix form and returns the result.                           *
 **********************************************************************/
+
 std::string infixToPostfix(std::string infixString)
 {
 	std::stack<char> operatorStack;
-	std::string postfixString = "";
+		std::string postfixExp = "";
 
-	int length = infixString.length();
+		int length = infixString.length();
 
-	for (int count = 0; count < length; count++)
-	{
-		switch (infixString[count])
+		for (int count = 0; count < length; count++)
 		{
-			case '(':
-				operatorStack.push(infixString[count]);
-				break;
+			switch (infixString[count])
+			{
 
-			case '+':
-			case '-':
-			case '*':
-			case '/':
-			case '^':
-				while (!operatorStack.empty() &&
-						operatorStack.top() != '(' &&
-					    precedenceCheck(infixString[count]) <= precedenceCheck(operatorStack.top()))
-				{
-					postfixString += operatorStack.top();
-					operatorStack.pop();
-				}
-
-				operatorStack.push(infixString[count]);
-				break;
+				case '(':
+					operatorStack.push(infixString[count]);
+					break;
 
 
 
-			case ')':
-
-				while (operatorStack.top() != '(' && !operatorStack.empty())
-				{
-					postfixString += operatorStack.top();
-					postfixString += ' ';
-					operatorStack.pop();
-				}
-
-				operatorStack.pop();
-				break;
-
-
-
-			default:
-			 	if (isalnum(infixString[count]))
-				{
-					if (isdigit(infixString[count]))
+				case '+':
+				case '-':
+				case '*':
+				case '/':
+				case '^':
+					while (!operatorStack.empty() &&
+							operatorStack.top() != '(' &&
+						    precedenceCheck(infixString[count]) <= precedenceCheck(operatorStack.top()))
 					{
-						std::string temp;
+						postfixExp += operatorStack.top();
+						postfixExp += ' ';
+						operatorStack.pop();
+					}
 
-						while (count < length && isdigit(infixString[count]))
+					operatorStack.push(infixString[count]);
+					break;
+
+
+
+				case ')':
+
+					while (operatorStack.top() != '(' && !operatorStack.empty())
+					{
+						postfixExp += operatorStack.top();
+						postfixExp += ' ';
+						operatorStack.pop();
+					}
+
+					operatorStack.pop();
+					break;
+
+
+
+				default:
+				 	if (isalnum(infixString[count]))
+					{
+						if (isdigit(infixString[count]))
 						{
-							temp += infixString[count];
-							count++;
+							std::string temp;
+
+							while (count < length && isdigit(infixString[count]))
+							{
+								temp += infixString[count];
+								count++;
+							}
+
+							count--;
+
+							postfixExp += ' ';
+							postfixExp += temp;
+							postfixExp += ' ';
 						}
 
-						count--;
-
-						postfixString += ' ';
-						postfixString += temp;
-						postfixString += ' ';
+						else
+						{
+							postfixExp += infixString[count];
+							postfixExp += ' ';
+						}
 					}
 
-					else
-					{
-						postfixString += ' ';
-						postfixString += infixString[count];
-						postfixString += ' ';
-					}
-				}
-
-				break;
+					break;
+			}
 		}
-	}
 
 
-	while (!operatorStack.empty())
-	{
-		postfixString += operatorStack.top();
-		postfixString += ' ';
-		operatorStack.pop();
-	}
+		while (!operatorStack.empty())
+		{
+			postfixExp += operatorStack.top();
+			postfixExp += ' ';
+			operatorStack.pop();
+		}
 
-	return postfixString;
+		return postfixExp;
 }
 
 
@@ -247,34 +284,55 @@ int main()
 	std::string string6;
 	std::string string7;
 
+
+
 	std::cout << std::endl;
 	std::cout << "****************************************\n";
 	std::cout << "* Testing of function \"infixToPostfix\" *\n";
 	std::cout << "****************************************\n";
 
 	std::cout << std::endl;
-	string1 = "a - (b + c * d) / e";
+	string1 = "A + B";
 	std::cout << "Infix expression: ";
 	std::cout << string1 << std::endl;
 	std::cout << "After conversion to postfix, the expression is now: ";
 	std::cout << infixToPostfix(string1) << std::endl;
 
 	std::cout << std::endl;
-	string2 = "(a + b) * (c + d)";
+	string2 = "(A + B) * (C - D)";
 	std::cout << "Infix expression: ";
 	std::cout << string2 << std::endl;
 	std::cout << "After conversion to postfix, the expression is now: ";
 	std::cout << infixToPostfix(string2) << std::endl;
 
 	std::cout << std::endl;
-	string3 = "3 / (9 - 20)";
+	string3 = "A - (B + C * D) / E";
 	std::cout << "Infix expression: ";
 	std::cout << string3 << std::endl;
 	std::cout << "After conversion to postfix, the expression is now: ";
 	std::cout << infixToPostfix(string3) << std::endl;
 
 	std::cout << std::endl;
-	std::cout << "****************************************\n";
+	string4 = "A ^ B / C * (D + E)";
+	std::cout << "Infix expression: ";
+	std::cout << string4 << std::endl;
+	std::cout << "After conversion to postfix, the expression is now: ";
+	std::cout << infixToPostfix(string4) << std::endl;
+
+	std::cout << std::endl;
+	string5 = "A + B * (C - D ^ E) / F ^ G";
+	std::cout << "Infix expression: ";
+	std::cout << string5 << std::endl;
+	std::cout << "After conversion to postfix, the expression is now: ";
+	std::cout << infixToPostfix(string5) << std::endl;
+
+
+
+
+
+
+	std::cout << std::endl;
+	std::cout << "\n\n\n****************************************\n";
 	std::cout << "* Testing of function \"evaluateInfix\" *\n";
 	std::cout << "****************************************\n";
 
@@ -306,38 +364,3 @@ int main()
 	std::cout << "Calculated value: ";
 	std::cout << evaluateInfix(string7) << std::endl;
 }
-
-
-
-/* OUTPUT:
-
-****************************************
-* Testing of function "infixToPostfix" *
-****************************************
-
-Infix expression: a - (b + c * d) / e
-After conversion to postfix, the expression is now: a b c d * + e / -
-
-Infix expression: (a + b) * (c + d)
-After conversion to postfix, the expression is now: a b + c d + *
-
-Infix expression: 3 / (9 - 20)
-After conversion to postfix, the expression is now: 3 9 20 - /
-
-****************************************
-* Testing of function "evaluateInfix" *
-****************************************
-
-Infix expression: 5 + 234
-Calculated value: 239
-
-Infix expression: (7 + 3) - 12 + (5 * 1)
-Calculated value: 3
-
-Infix expression: 3 * 20 + (7 - 2)
-Calculated value: 65
-
-Infix expression: ((9 + 11) / (5 - 3)) * 3 + 7
-Calculated value: 37
-
-*/
