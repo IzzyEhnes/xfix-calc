@@ -21,16 +21,18 @@
 #include <stack>
 #include <cctype>
 #include <string>
+#include <cmath>
 
 
 
 // Main functions
-int evaluateInfix(std::string inExpression);
+double evaluatePostfix(std::string inExpression);
 std::string infixToPostfix(std::string inExpression);
 
 // Helper functions
 int precedenceCheck(char inOperator);
 bool isOperator(char inChar);
+double calculate(double operand1, double operand2, char symbol);
 
 
 
@@ -55,82 +57,114 @@ bool isOperator(char inChar)
 
 
 
+double calculate(double operand1, double operand2, char symbol)
+{
+	double result = 0;
+
+	switch (symbol)
+	{
+		case '+':
+			result = operand1 + operand2;
+			break;
+
+		case '-':
+			result = operand1 - operand2;
+			break;
+
+		case '*':
+			result = operand1 * operand2;
+			break;
+
+		case '/':
+			// add throw div by 0 error
+			result = operand1 / operand2;
+			break;
+
+		case '^':
+			result = pow(operand1, operand2);
+			break;
+
+		default:
+			//add throw error
+			return -1;
+	}
+
+	return result;
+}
+
+
+
+
+
+
 /**************************************************
-* evaluateInfix evaluates the incoming postfix    *
+* evaluatePostfix evaluates the incoming infix    *
 * string "inExpression" and calculates an answer, *
-* which is then returned as an int value.         *
+* which is then returned as an double value.      *
 **************************************************/
-int evaluateInfix(std::string inExpression)
+double evaluatePostfix(std::string inExpression)
 {
 	std::string postfixString = infixToPostfix(inExpression);
 
-	std::stack<int> calc_stack;
+	std::stack<int> stack;
 
-	int operand1, operand2;
-	int length = inExpression.length();
+	int length = postfixString.length();
+	std::string tempString = "";
+	double tempNum = 0;
 
+	double result = 0;
 
 	for (int count = 0; count < length; count++)
 	{
-		if (postfixString[count] == '+' || postfixString[count] == '-' ||
-		    postfixString[count] == '*' || postfixString[count] == '/' ||
-			postfixString[count] == '^')
+		// if current char is an operand
+		if (isdigit(postfixString[count]))
 		{
-			operand2 = calc_stack.top();
-			calc_stack.pop();
-
-			operand1 = calc_stack.top();
-			calc_stack.pop();
-
-			int result = 0;
-			switch(postfixString[count])
+			int i = count + 1;
+			if (i <= length - 1)
 			{
-				case '+':
-					result = operand1 + operand2;
-					break;
-
-				case '-':
-					result = operand1 - operand2;
-					break;
-
-				case '*':
-					result = operand1 * operand2;
-					break;
-
-				case '/':
-					result = operand1 / operand2;
-					break;
-
-				case '^':
-					result = operand1 ^ operand2;
+				tempString += postfixString[count];
+				while (postfixString[i] != ' ' && i <= length - 1)
+				{
+					tempString += postfixString[i];
+					i++;
+				}
 			}
 
-			calc_stack.push(result);
-		}
 
+			tempNum = stod(tempString);
+			stack.push(tempNum);
+			tempNum = 0;
+			tempString = "";
 
-		else if (isdigit(postfixString[count]))
-		{
-			int temp = 0;
-			int char_to_int;
-			int length = postfixString.length();
-
-			while (count < length && isdigit(postfixString[count]))
+			if (i < length - 1)
 			{
-				char_to_int = postfixString[count] - '0';
-				temp *= 10;
-				temp += char_to_int;
-
-				count++;
+				count = i;
 			}
-
-			count--;
-
-			calc_stack.push(temp);
 		}
+
+		// if current char is an operator
+		else if (isOperator(postfixString[count]))
+		{
+			char symbol = postfixString[count];
+			int operand1, operand2;
+			operand2 = stack.top();
+			stack.pop();
+			operand1 = stack.top();
+			stack.pop();
+
+			stack.push(calculate(operand1, operand2, symbol));
+		}
+
+		else
+		{
+			//add error if not space char
+			continue;
+		}
+
 	}
 
-	return calc_stack.top();
+	result = stack.top();;
+	return result;
 }
 
 
@@ -274,6 +308,7 @@ std::string infixToPostfix(std::string infixString)
 
 
 
+
 int main()
 {
 	std::string string1;
@@ -281,8 +316,6 @@ int main()
 	std::string string3;
 	std::string string4;
 	std::string string5;
-	std::string string6;
-	std::string string7;
 
 
 
@@ -331,36 +364,42 @@ int main()
 
 
 
-	std::cout << std::endl;
 	std::cout << "\n\n\n****************************************\n";
-	std::cout << "* Testing of function \"evaluateInfix\" *\n";
+	std::cout << "* Testing of function \"evaluatePostfix\"  *\n";
 	std::cout << "****************************************\n";
 
 	std::cout << std::endl;
-	string4 = "5 + 234";
+	string1 = "10 + 243";
+	std::cout << "Infix expression: ";
+	std::cout << string1 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePostfix(string1) << std::endl;
+
+	std::cout << std::endl;
+	string2 = "(7 + 3) - 12 + (5 * 1)";
+	std::cout << "Infix expression: ";
+	std::cout << string2 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePostfix(string2) << std::endl;
+
+	std::cout << std::endl;
+	string3 = "3 * 20 + (7 - 2)";
+	std::cout << "Infix expression: ";
+	std::cout << string3 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePostfix(string3) << std::endl;
+
+	std::cout << std::endl;
+	string4 = "((9 + 11) / (5 - 3)) * 3 + 7";
 	std::cout << "Infix expression: ";
 	std::cout << string4 << std::endl;
 	std::cout << "Calculated value: ";
-	std::cout << evaluateInfix(string4) << std::endl;
+	std::cout << evaluatePostfix(string4) << std::endl;
 
 	std::cout << std::endl;
-	string5 = "(7 + 3) - 12 + (5 * 1)";
+	string5 = "(2 ^ 3 + (50 * 4)) / 4 ^ 2 - 20";
 	std::cout << "Infix expression: ";
 	std::cout << string5 << std::endl;
 	std::cout << "Calculated value: ";
-	std::cout << evaluateInfix(string5) << std::endl;
-
-	std::cout << std::endl;
-	string6 = "3 * 20 + (7 - 2)";
-	std::cout << "Infix expression: ";
-	std::cout << string6 << std::endl;
-	std::cout << "Calculated value: ";
-	std::cout << evaluateInfix(string6) << std::endl;
-
-	std::cout << std::endl;
-	string7 = "((9 + 11) / (5 - 3)) * 3 + 7";
-	std::cout << "Infix expression: ";
-	std::cout << string7 << std::endl;
-	std::cout << "Calculated value: ";
-	std::cout << evaluateInfix(string7) << std::endl;
+	std::cout << evaluatePostfix(string5) << std::endl;
 }
