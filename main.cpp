@@ -27,17 +27,25 @@
 
 // Main functions
 double evaluatePostfix(std::string inExpression);
+
 std::string infixToPostfix(std::string inExpression);
 std::string infixToPrefix(std::string inExpression);
+
 std::string postfixToInfix(std::string inExpression);
 std::string prefixToInfix(std::string inExpression);
+
 std::string prefixToPostfix(std::string inExpression);
+
+
 
 // Helper functions
 int precedenceCheck(char inOperator);
 bool isOperator(char inChar);
 double calculate(double operand1, double operand2, char symbol);
 std::string reverse(std::string &inExpression);
+
+
+
 
 
 
