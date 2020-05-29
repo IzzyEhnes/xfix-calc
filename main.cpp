@@ -648,9 +648,9 @@ int main()
 
 
 
-	std::cout << "\n\n\n****************************************\n";
+	std::cout << "\n\n\n***************************************\n";
 	std::cout << "* Testing of function \"prefixToInfix\" *\n";
-	std::cout << "****************************************\n";
+	std::cout << "***************************************\n";
 
 	std::cout << std::endl;
 	string1 = "A + B";
@@ -712,9 +712,9 @@ int main()
 
 
 
-	std::cout << "\n\n\n****************************************\n";
+	std::cout << "\n\n\n*****************************************\n";
 	std::cout << "* Testing of function \"prefixToPostfix\" *\n";
-	std::cout << "****************************************\n";
+	std::cout << "*****************************************\n";
 
 	std::cout << std::endl;
 	string1 = "+ A B";
@@ -761,9 +761,9 @@ int main()
 
 
 
-	std::cout << "\n\n\n****************************************\n";
+	std::cout << "\n\n\n*****************************************\n";
 	std::cout << "* Testing of function \"postfixToPrefix\" *\n";
-	std::cout << "****************************************\n";
+	std::cout << "*****************************************\n";
 
 	std::cout << std::endl;
 	string1 = "A B +";
