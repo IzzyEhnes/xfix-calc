@@ -29,6 +29,7 @@
 double evaluatePostfix(std::string inExpression);
 std::string infixToPostfix(std::string inExpression);
 std::string infixToPrefix(std::string inExpression);
+std::string postfixToInfix(std::string inExpression);
 
 // Helper functions
 int precedenceCheck(char inOperator);
@@ -362,6 +363,47 @@ std::string infixToPrefix(std::string infixString)
 
 
 
+std::string postfixToInfix(std::string postfixString)
+{
+	std::stack<std::string> stack;
+	int length = postfixString.size();
+	std::string infixString = "";
+
+	for (int count = 0; count < length; count++)
+	{
+		if (isOperator(postfixString[count]))
+		{
+			std::string operator1 = stack.top();
+			stack.pop();
+
+			std::string operator2 = stack.top();
+			stack.pop();
+
+			std::string temp = "(" + operator2 + ' ' + postfixString[count] + ' ' + operator1 + ")";
+
+			stack.push(temp);
+		}
+
+		else if (postfixString[count] != ' ')
+		{
+			stack.push(std::string(1, postfixString[count]));
+		}
+
+		else
+		{
+			continue;
+		}
+	}
+
+	infixString = stack.top();
+	return infixString;
+}
+
+
+
+
+
+
 
 int main()
 {
@@ -456,6 +498,70 @@ int main()
 	std::cout << string5 << std::endl;
 	std::cout << "After conversion to prefix, the expression is now: ";
 	std::cout << infixToPrefix(string5) << std::endl;
+
+
+
+
+
+
+	std::cout << "\n\n\n****************************************\n";
+	std::cout << "* Testing of function \"postfixToInfix\" *\n";
+	std::cout << "****************************************\n";
+
+	std::cout << std::endl;
+	string1 = "A + B";
+	std::cout << "Infix expression: ";
+	std::cout << string1 << std::endl;
+	std::cout << "After conversion to postfix, the expression is now: ";
+	string1 = infixToPostfix(string1);
+	std::cout << string1 << std::endl;
+	std::cout << "After conversion back to infix, the expression is now: ";
+	string1 = postfixToInfix(string1);
+	std::cout << string1 << std::endl;
+
+	std::cout << std::endl;
+	string2 = "(A + B) * (C - D)";
+	std::cout << "Infix expression: ";
+	std::cout << string2 << std::endl;
+	std::cout << "After conversion to postfix, the expression is now: ";
+	string2 = infixToPostfix(string2);
+	std::cout << string2 << std::endl;
+	std::cout << "After conversion back to infix, the expression is now: ";
+	string2 = postfixToInfix(string2);
+	std::cout << string2 << std::endl;
+
+	std::cout << std::endl;
+	string3 = "A - (B + C * D) / E";
+	std::cout << "Infix expression: ";
+	std::cout << string3 << std::endl;
+	std::cout << "After conversion to postfix, the expression is now: ";
+	string3 = infixToPostfix(string3);
+	std::cout << string3 << std::endl;
+	std::cout << "After conversion back to infix, the expression is now: ";
+	string3 = postfixToInfix(string3);
+	std::cout << string3 << std::endl;
+
+	std::cout << std::endl;
+	string4 = "A ^ B / C * (D + E)";
+	std::cout << "Infix expression: ";
+	std::cout << string4 << std::endl;
+	std::cout << "After conversion to postfix, the expression is now: ";
+	string4 = infixToPostfix(string4);
+	std::cout << string4 << std::endl;
+	std::cout << "After conversion back to infix, the expression is now: ";
+	string4 = postfixToInfix(string4);
+	std::cout << string4 << std::endl;
+
+	std::cout << std::endl;
+	string5 = "A + B * (C - D ^ E) / F ^ G";
+	std::cout << "Infix expression: ";
+	std::cout << string5 << std::endl;
+	std::cout << "After conversion to postfix, the expression is now: ";
+	string5 = infixToPostfix(string5);
+	std::cout << string5 << std::endl;
+	std::cout << "After conversion back to infix, the expression is now: ";
+	string5 = postfixToInfix(string5);
+	std::cout << string5 << std::endl;
 
 
 
