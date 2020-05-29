@@ -26,7 +26,7 @@
 
 
 // Main functions
-double evaluatePostfix(std::string inExpression);
+double evaluateInfix(std::string inExpression);
 
 std::string infixToPostfix(std::string inExpression);
 std::string infixToPrefix(std::string inExpression);
@@ -145,11 +145,11 @@ std::string reverse(std::string &inExpression)
 
 
 /**************************************************
-* evaluatePostfix evaluates the incoming infix    *
+* evaluateInfix evaluates the incoming infix    *
 * string "inExpression" and calculates an answer, *
 * which is then returned as an double value.      *
 **************************************************/
-double evaluatePostfix(std::string inExpression)
+double evaluateInfix(std::string inExpression)
 {
 	std::string postfixString = infixToPostfix(inExpression);
 
@@ -163,31 +163,26 @@ double evaluatePostfix(std::string inExpression)
 
 	for (int count = 0; count < length; count++)
 	{
+
 		// if current char is an operand
 		if (isdigit(postfixString[count]))
 		{
-			int i = count + 1;
-			if (i <= length - 1)
+			std::string tempString;
+
+			while (count < length && isdigit(postfixString[count]))
 			{
-				tempString += postfixString[count];
-				while (postfixString[i] != ' ' && i <= length - 1)
-				{
-					tempString += postfixString[i];
-					i++;
-				}
+					tempString += postfixString[count];
+					count++;
 			}
 
+			count--;
 
 			tempNum = stod(tempString);
-			stack.push(tempNum);
-			tempNum = 0;
 			tempString = "";
+			stack.push(tempNum);
 
-			if (i < length - 1)
-			{
-				count = i;
-			}
 		}
+
 
 		// if current char is an operator
 		else if (isOperator(postfixString[count]))
@@ -395,10 +390,29 @@ std::string postfixToInfix(std::string postfixString)
 			stack.push(temp);
 		}
 
-		else if (postfixString[count] != ' ')
-		{
-			stack.push(std::string(1, postfixString[count]));
-		}
+	    else if (isalnum(postfixString[count]))
+	    {
+	    	if (isdigit(postfixString[count]))
+	    	{
+	    		std::string tempString;
+
+	    		while (count < length && isdigit(postfixString[count]))
+	    		{
+	    			tempString += postfixString[count];
+	    			count++;
+	    		}
+
+	    		count--;
+
+	    		stack.push(tempString);
+	    		tempString = "";
+	    	}
+
+	    	else
+	    	{
+	    		stack.push(std::string(1, postfixString[count]));
+	    	}
+	    }
 
 		else
 		{
@@ -439,9 +453,28 @@ std::string prefixToInfix(std::string prefixString)
 	    	stack.push(temp);
 	    }
 
-	    else if (reversedString[count] != ' ')
+	    else if (isalnum(reversedString[count]))
 	    {
-	    	stack.push(std::string(1, reversedString[count]));
+	    	if (isdigit(reversedString[count]))
+	    	{
+	    		std::string tempString;
+
+	    		while (count < length && isdigit(reversedString[count]))
+	    		{
+	    			tempString += reversedString[count];
+	    			count++;
+	    		}
+
+	    		count--;
+
+	    		stack.push(reverse(tempString));
+	    		tempString = "";
+	    	}
+
+	    	else
+	    	{
+	    		stack.push(std::string(1, reversedString[count]));
+	    	}
 	    }
 
 	    else
@@ -811,7 +844,7 @@ int main()
 
 
 	std::cout << "\n\n\n*****************************************\n";
-	std::cout << "* Testing of function \"evaluatePostfix\" *\n";
+	std::cout << "* Testing of function \"evaluateInfix\" *\n";
 	std::cout << "*****************************************\n";
 
 	std::cout << std::endl;
@@ -819,33 +852,33 @@ int main()
 	std::cout << "Infix expression: ";
 	std::cout << string1 << std::endl;
 	std::cout << "Calculated value: ";
-	std::cout << evaluatePostfix(string1) << std::endl;
+	std::cout << evaluateInfix(string1) << std::endl;
 
 	std::cout << std::endl;
 	string2 = "(7 + 3) - 12 + (5 * 1)";
 	std::cout << "Infix expression: ";
 	std::cout << string2 << std::endl;
 	std::cout << "Calculated value: ";
-	std::cout << evaluatePostfix(string2) << std::endl;
+	std::cout << evaluateInfix(string2) << std::endl;
 
 	std::cout << std::endl;
 	string3 = "3 * 20 + (7 - 2)";
 	std::cout << "Infix expression: ";
 	std::cout << string3 << std::endl;
 	std::cout << "Calculated value: ";
-	std::cout << evaluatePostfix(string3) << std::endl;
+	std::cout << evaluateInfix(string3) << std::endl;
 
 	std::cout << std::endl;
 	string4 = "((9 + 11) / (5 - 3)) * 3 + 7";
 	std::cout << "Infix expression: ";
 	std::cout << string4 << std::endl;
 	std::cout << "Calculated value: ";
-	std::cout << evaluatePostfix(string4) << std::endl;
+	std::cout << evaluateInfix(string4) << std::endl;
 
 	std::cout << std::endl;
 	string5 = "(2 ^ 3 + (50 * 4)) / 4 ^ 2 - 20";
 	std::cout << "Infix expression: ";
 	std::cout << string5 << std::endl;
 	std::cout << "Calculated value: ";
-	std::cout << evaluatePostfix(string5) << std::endl;
+	std::cout << evaluateInfix(string5) << std::endl;
 }
