@@ -318,7 +318,6 @@ std::string infixToPostfix(std::string infixString)
 
 							count--;
 
-							postfixExp += ' ';
 							postfixExp += temp;
 							postfixExp += ' ';
 						}
