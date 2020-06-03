@@ -112,6 +112,7 @@ double calculate(double operand1, double operand2, char symbol)
 
 
 
+
 std::string reverse(std::string &inExpression)
 {
 	int length = inExpression.length();
@@ -390,13 +391,13 @@ std::string postfixToInfix(std::string postfixString)
 	{
 		if (isOperator(postfixString[count]))
 		{
-			std::string operator1 = stack.top();
+			std::string operand1 = stack.top();
 			stack.pop();
 
-			std::string operator2 = stack.top();
+			std::string operand2 = stack.top();
 			stack.pop();
 
-			std::string temp = "(" + operator2 + ' ' + postfixString[count] + ' ' + operator1 + ")";
+			std::string temp = "(" + operand2 + ' ' + postfixString[count] + ' ' + operand1 + ")";
 
 			stack.push(temp);
 		}
@@ -453,13 +454,13 @@ std::string prefixToInfix(std::string prefixString)
 	{
 		if (isOperator(reversedString[count]))
 	    {
-	    	std::string operator1 = stack.top();
+	    	std::string operand1 = stack.top();
 	    	stack.pop();
 
-	    	std::string operator2 = stack.top();
+	    	std::string operand2 = stack.top();
 	    	stack.pop();
 
-	    	std::string temp = "(" + operator1 + ' ' + reversedString[count] + ' ' + operator2 + ")";
+	    	std::string temp = "(" + operand1 + ' ' + reversedString[count] + ' ' + operand2 + ")";
 
 	    	stack.push(temp);
 	    }
@@ -964,8 +965,7 @@ int main()
 	string2 = infixToPrefix(string2);
 	std::cout << "Prefix expression: ";
 	std::cout << string2 << std::endl;
-	//std::cout << "To infix: " << prefixToInfix(string2) << std::endl;
-	std::cout << "To postfix: " << prefixToPostfix(string2) << std::endl;
+	std::cout << "\nPrefix to infix: " << prefixToInfix(string2) << std::endl;
 	std::cout << "Calculated value: ";
 	std::cout << evaluatePrefix(string2) << std::endl;
 
