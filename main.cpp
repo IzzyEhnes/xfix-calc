@@ -27,6 +27,7 @@
 
 // Main functions
 double evaluateInfix(std::string inExpression);
+double evaluatePostfix(std::string inExpression);
 
 std::string infixToPostfix(std::string inExpression);
 std::string infixToPrefix(std::string inExpression);
@@ -149,10 +150,26 @@ std::string reverse(std::string &inExpression)
 * string "inExpression" and calculates an answer, *
 * which is then returned as an double value.      *
 **************************************************/
-double evaluateInfix(std::string inExpression)
+double evaluateInfix(std::string infixString)
 {
-	std::string postfixString = infixToPostfix(inExpression);
+	double result = 0;
+	std::string postfixString = "";
 
+	postfixString = infixToPostfix(infixString);
+
+	result = evaluatePostfix(postfixString);
+
+
+	return result;
+}
+
+
+
+
+
+
+double evaluatePostfix(std::string postfixString)
+{
 	std::stack<int> stack;
 
 	int length = postfixString.length();
@@ -880,4 +897,53 @@ int main()
 	std::cout << string5 << std::endl;
 	std::cout << "Calculated value: ";
 	std::cout << evaluateInfix(string5) << std::endl;
+
+
+
+
+
+
+	std::cout << "\n\n\n*****************************************\n";
+	std::cout << "* Testing of function \"evaluatePostfix\" *\n";
+	std::cout << "*****************************************\n";
+
+	std::cout << std::endl;
+	string1 = "10 + 243";
+	string1 = infixToPostfix(string1);
+	std::cout << "Postfix expression: ";
+	std::cout << string1 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePostfix(string1) << std::endl;
+
+	std::cout << std::endl;
+	string2 = "(7 + 3) - 12 + (5 * 1)";
+	string2 = infixToPostfix(string2);
+	std::cout << "Postfix expression: ";
+	std::cout << string2 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePostfix(string2) << std::endl;
+
+	std::cout << std::endl;
+	string3 = "3 * 20 + (7 - 2)";
+	string3 = infixToPostfix(string3);
+	std::cout << "Postfix expression: ";
+	std::cout << string3 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePostfix(string3) << std::endl;
+
+	std::cout << std::endl;
+	string4 = "((9 + 11) / (5 - 3)) * 3 + 7";
+	string4 = infixToPostfix(string4);
+	std::cout << "Postfix expression: ";
+	std::cout << string4 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePostfix(string4) << std::endl;
+
+	std::cout << std::endl;
+	string5 = "(2 ^ 3 + (50 * 4)) / 4 ^ 2 - 20";
+	string5 = infixToPostfix(string5);
+	std::cout << "Postfix expression: ";
+	std::cout << string5 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePostfix(string5) << std::endl;
 }
