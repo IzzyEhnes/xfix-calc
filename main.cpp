@@ -280,101 +280,80 @@ int precedenceCheck(char inOperator)
 
 
 
-/**********************************************************************
-* infixToPostfix converts the incoming infix expression, infixString, *
-* into postfix form and returns the result.                           *
-**********************************************************************/
-
 std::string infixToPostfix(std::string infixString)
 {
 	std::stack<char> operatorStack;
-		std::string postfixExp = "";
+	std::string postfixString = "";
 
-		int length = infixString.length();
+	int length = infixString.length();
 
-		for (int count = 0; count < length; count++)
+	for (int count = 0; count < length; count++)
+	{
+		if (infixString[count] == '(')
 		{
-			switch (infixString[count])
+			operatorStack.push('(');
+		}
+
+		else if (isalnum(infixString[count]))
+		{
+			if (isdigit(infixString[count]))
 			{
+				std::string temp;
 
-				case '(':
-					operatorStack.push(infixString[count]);
-					break;
+				while (count < length && isdigit(infixString[count]))
+				{
+					temp += infixString[count];
+					count++;
+				}
 
+				count--;
 
+				postfixString += temp;
+				postfixString += ' ';
 
-				case '+':
-				case '-':
-				case '*':
-				case '/':
-				case '^':
-					while (!operatorStack.empty() &&
-							operatorStack.top() != '(' &&
-						    precedenceCheck(infixString[count]) <= precedenceCheck(operatorStack.top()))
-					{
-						postfixExp += operatorStack.top();
-						postfixExp += ' ';
-						operatorStack.pop();
-					}
+			}
 
-					operatorStack.push(infixString[count]);
-					break;
-
-
-
-				case ')':
-
-					while (operatorStack.top() != '(' && !operatorStack.empty())
-					{
-						postfixExp += operatorStack.top();
-						postfixExp += ' ';
-						operatorStack.pop();
-					}
-
-					operatorStack.pop();
-					break;
-
-
-
-				default:
-				 	if (isalnum(infixString[count]))
-					{
-						if (isdigit(infixString[count]))
-						{
-							std::string temp;
-
-							while (count < length && isdigit(infixString[count]))
-							{
-								temp += infixString[count];
-								count++;
-							}
-
-							count--;
-
-							postfixExp += temp;
-							postfixExp += ' ';
-						}
-
-						else
-						{
-							postfixExp += infixString[count];
-							postfixExp += ' ';
-						}
-					}
-
-					break;
+			else
+			{
+				postfixString += infixString[count];
+				postfixString += ' ';
 			}
 		}
 
-
-		while (!operatorStack.empty())
+		else if (infixString[count] == ')')
 		{
-			postfixExp += operatorStack.top();
-			postfixExp += ' ';
-			operatorStack.pop();
+			while (operatorStack.top() != '(' && !operatorStack.empty())
+			{
+				postfixString += operatorStack.top();
+				postfixString += ' ';
+
+				operatorStack.pop();
+			}
+				operatorStack.pop();
 		}
 
-		return postfixExp;
+		else if (isOperator(infixString[count]))
+		{
+			while (!operatorStack.empty() &&
+					(precedenceCheck(operatorStack.top()) >= precedenceCheck(infixString[count]))
+					&& operatorStack.top() != '(' && operatorStack.top() != ')')
+			{
+				postfixString += operatorStack.top();
+				operatorStack.pop();
+				postfixString += ' ';
+			}
+				operatorStack.push(infixString[count]);
+		}
+	}
+
+	while (!operatorStack.empty())
+	{
+		postfixString += operatorStack.top();
+		postfixString += ' ';
+		operatorStack.pop();
+	}
+
+	return postfixString;
 }
 
 
@@ -587,14 +566,14 @@ int main()
 	std::cout << infixToPostfix(string3) << std::endl;
 
 	std::cout << std::endl;
-	string4 = "A ^ B / C * (D + E)";
+	string4 = "A ^ B / C * D + E";
 	std::cout << "Infix expression: ";
 	std::cout << string4 << std::endl;
 	std::cout << "After conversion to postfix, the expression is now: ";
 	std::cout << infixToPostfix(string4) << std::endl;
 
 	std::cout << std::endl;
-	string5 = "A + B * (C - D ^ E) / F ^ G";
+	string5 = "A + B * (C - D) / E + (F ^ G - H)";
 	std::cout << "Infix expression: ";
 	std::cout << string5 << std::endl;
 	std::cout << "After conversion to postfix, the expression is now: ";
@@ -887,7 +866,7 @@ int main()
 	std::cout << evaluateInfix(string1) << std::endl;
 
 	std::cout << std::endl;
-	string2 = "(7 + 3) - 12 + (5 * 1)";
+	string2 = "(7 + 3) - 12 + 3";
 	std::cout << "Infix expression: ";
 	std::cout << string2 << std::endl;
 	std::cout << "Calculated value: ";
@@ -932,7 +911,7 @@ int main()
 	std::cout << evaluatePostfix(string1) << std::endl;
 
 	std::cout << std::endl;
-	string2 = "(7 + 3) - 12 + (5 * 1)";
+	string2 = "(7 + 3) - 12 + 3";
 	string2 = infixToPostfix(string2);
 	std::cout << "Postfix expression: ";
 	std::cout << string2 << std::endl;
@@ -985,6 +964,8 @@ int main()
 	string2 = infixToPrefix(string2);
 	std::cout << "Prefix expression: ";
 	std::cout << string2 << std::endl;
+	//std::cout << "To infix: " << prefixToInfix(string2) << std::endl;
+	std::cout << "To postfix: " << prefixToPostfix(string2) << std::endl;
 	std::cout << "Calculated value: ";
 	std::cout << evaluatePrefix(string2) << std::endl;
 
