@@ -28,6 +28,7 @@
 // Main functions
 double evaluateInfix(std::string inExpression);
 double evaluatePostfix(std::string inExpression);
+double evaluatePrefix(std::string inExpression);
 
 std::string infixToPostfix(std::string inExpression);
 std::string infixToPrefix(std::string inExpression);
@@ -223,6 +224,21 @@ double evaluatePostfix(std::string postfixString)
 	}
 
 	result = stack.top();;
+	return result;
+}
+
+
+
+
+
+
+double evaluatePrefix(std::string prefixString)
+{
+	double result = 0;
+
+	std::string postfixString = prefixToPostfix(prefixString);
+	result = evaluatePostfix(postfixString);
+
 	return result;
 }
 
@@ -946,4 +962,53 @@ int main()
 	std::cout << string5 << std::endl;
 	std::cout << "Calculated value: ";
 	std::cout << evaluatePostfix(string5) << std::endl;
+
+
+
+
+
+
+	std::cout << "\n\n\n*****************************************\n";
+	std::cout << "* Testing of function \"evaluatePrefix\" *\n";
+	std::cout << "*****************************************\n";
+
+	std::cout << std::endl;
+	string1 = "10 + 243";
+	string1 = infixToPrefix(string1);
+	std::cout << "Prefix expression: ";
+	std::cout << string1 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePrefix(string1) << std::endl;
+
+	std::cout << std::endl;
+	string2 = "(7 + 3) - 12 + 3";
+	string2 = infixToPrefix(string2);
+	std::cout << "Prefix expression: ";
+	std::cout << string2 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePrefix(string2) << std::endl;
+
+	std::cout << std::endl;
+	string3 = "3 * 20 + (7 - 2)";
+	string3 = infixToPrefix(string3);
+	std::cout << "Prefix expression: ";
+	std::cout << string3 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePrefix(string3) << std::endl;
+
+	std::cout << std::endl;
+	string4 = "((9 + 11) / (5 - 3)) * 3 + 7";
+	string4 = infixToPrefix(string4);
+	std::cout << "Prefix expression: ";
+	std::cout << string4 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePrefix(string4) << std::endl;
+
+	std::cout << std::endl;
+	string5 = "(2 ^ 3 + (50 * 4)) / 4 ^ 2 - 20";
+	string5 = infixToPrefix(string5);
+	std::cout << "Prefix expression: ";
+	std::cout << string5 << std::endl;
+	std::cout << "Calculated value: ";
+	std::cout << evaluatePrefix(string5) << std::endl;
 }
