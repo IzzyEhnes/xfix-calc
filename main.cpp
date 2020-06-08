@@ -1,19 +1,7 @@
-// Izzy Ehnes
-// main.cpp
-// 5 March 2019
-
-/*
-	DESCRIPTION:
-
-	This program converts infix expressions into postfix form and can then compute
-	an answer. It requires there to spaces between the operands and operators to work
-	correctly to prevent any issues with multiple-digit operands.
-
-	The main() function tests the functions by providing various infix problems,
-	which are converted to postfix in the function infixToPostfix and calculated in the
-	function evaluateInfix.
-
-*/
+// AUTHOR: Izzy Ehnes
+// FILE: main.cpp
+// CREATED: March 5, 2019
+// LAST UPDATED: June 4, 2020
 
 
 
@@ -61,6 +49,7 @@ bool isOperator(char inChar)
 		case '-':
 		case '*':
 		case '/':
+		case '%':
 		case '^':
 			return true;
 
@@ -90,6 +79,10 @@ double calculate(double operand1, double operand2, char symbol)
 
 		case '*':
 			result = operand1 * operand2;
+			break;
+
+		case '%':
+			result = fmod(operand1, operand2);
 			break;
 
 		case '/':
@@ -151,11 +144,6 @@ std::string reverse(std::string &inExpression)
 
 
 
-/**************************************************
-* evaluateInfix evaluates the incoming infix    *
-* string "inExpression" and calculates an answer, *
-* which is then returned as an double value.      *
-**************************************************/
 double evaluateInfix(std::string infixString)
 {
 	double result = 0;
@@ -261,11 +249,6 @@ double evaluatePrefix(std::string prefixString)
 
 
 
-/******************************************************************
-* precedenceCheck is a helper function for infixToPostfix.        *
-* It returns '0' if inOperator is a '+' or '-' (lower precedence) *
-* and '1' if inOperator is a '*', '^', or '/' (higher precedence).*
-******************************************************************/
 int precedenceCheck(char inOperator)
 {
 	if (inOperator == '^')
@@ -273,7 +256,7 @@ int precedenceCheck(char inOperator)
 		return 3;
 	}
 
-	else if (inOperator == '*' || inOperator == '/')
+	else if (inOperator == '*' || inOperator == '/' || inOperator == '%')
 	{
 		return 2;
 	}
@@ -908,7 +891,7 @@ int main()
 		std::cout << "*****************************************\n";
 
 		std::cout << std::endl;
-		string1 = "10 + 243";
+		string1 = "10 % 5";
 		std::cout << "Infix expression: ";
 		std::cout << string1 << std::endl;
 		std::cout << "Calculated value: ";
@@ -976,7 +959,7 @@ int main()
 		std::cout << evaluatePostfix(string3) << std::endl;
 
 		std::cout << std::endl;
-		string4 = "((9 + 11) / (5 - 3)) * 3 + 7";
+		string4 = "((9 + 11) % (5 - 3)) * 3 + 7";
 		string4 = infixToPostfix(string4);
 		std::cout << "Postfix expression: ";
 		std::cout << string4 << std::endl;
