@@ -12,6 +12,8 @@ using namespace xfix_calc;
 
 int main()
 {
+
+	/*
 	Expression expr1;
 	std::string str1 = "(A + B) - C * (D / E)";
 	Expression expr2("C - D");
@@ -34,7 +36,62 @@ int main()
 	expr2 += " / F";
 
 	std::cout << expr2 << std::endl;
+	*/
 
+	Expression expr1;
+	Expression expr2;
+	Expression expr3;
+	Expression expr4;
+	Expression expr5;
+
+	try
+		{
+			std::cout << std::endl;
+			std::cout << "****************************************\n";
+			std::cout << "* Testing of function \"infixToPostfix\" *\n";
+			std::cout << "****************************************\n";
+
+			std::cout << std::endl;
+			expr1 = "A + B";
+			std::cout << "Infix expression: ";
+			std::cout << expr1 << std::endl;
+			std::cout << "After conversion to postfix, the expression is now: ";
+			std::cout << expr1.infixToPostfix() << std::endl;
+
+			std::cout << std::endl;
+			expr2 = "(A + B) * (C - D)";
+			std::cout << "Infix expression: ";
+			std::cout << expr2 << std::endl;
+			std::cout << "After conversion to postfix, the expression is now: ";
+			std::cout << expr2.infixToPostfix() << std::endl;
+
+			std::cout << std::endl;
+			expr3 = "A - (B + C * D) / E";
+			std::cout << "Infix expression: ";
+			std::cout << expr3 << std::endl;
+			std::cout << "After conversion to postfix, the expression is now: ";
+			std::cout << expr3.infixToPostfix() << std::endl;
+
+			std::cout << std::endl;
+			expr4 = "A ^ B / C * D + E";
+			std::cout << "Infix expression: ";
+			std::cout << expr4 << std::endl;
+			std::cout << "After conversion to postfix, the expression is now: ";
+			std::cout << expr4.infixToPostfix() << std::endl;
+
+			std::cout << std::endl;
+			expr5 = "A + B * (C - D) / E + (F ^ G - H)";
+			std::cout << "Infix expression: ";
+			std::cout << expr5 << std::endl;
+			std::cout << "After conversion to postfix, the expression is now: ";
+			std::cout << expr5.infixToPostfix() << std::endl;
+
+		}
+
+	catch(std::string& e)
+	{
+		std::cout << e;
+	}
 
 	/*
 	std::string string1;

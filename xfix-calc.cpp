@@ -255,7 +255,7 @@ namespace xfix_calc
 
 
 
-/*
+
 	Expression Expression::operator=(const std::string &inString)
   	{
       	expression = inString;
@@ -264,8 +264,7 @@ namespace xfix_calc
   	}
 
 
-
-
+/*
 
 
 	double evaluateInfix(std::string infixString)
@@ -370,6 +369,97 @@ namespace xfix_calc
 
 */
 
+
+	Expression Expression::infixToPostfix()
+	{
+		std::stack<char> operatorStack;
+		Expression postfixString;
+
+		int length = expression.length();
+
+		for (int count = 0; count < length; count++)
+		{
+			if (expression[count] == '(')
+			{
+				operatorStack.push('(');
+			}
+
+			else if (isalnum(expression[count]))
+			{
+				if (isdigit(expression[count]))
+				{
+					std::string temp;
+
+					while (count < length && isdigit(expression[count]))
+					{
+						temp += expression[count];
+						count++;
+					}
+
+					count--;
+
+					postfixString += temp;
+					postfixString += ' ';
+
+				}
+
+				else
+				{
+					postfixString += expression[count];
+					postfixString += ' ';
+				}
+			}
+
+			else if (expression[count] == ')')
+			{
+				while (operatorStack.top() != '(' && !operatorStack.empty())
+				{
+					postfixString += operatorStack.top();
+					postfixString += ' ';
+
+					operatorStack.pop();
+				}
+					operatorStack.pop();
+			}
+
+			else if (isOperator(expression[count]))
+			{
+				while (!operatorStack.empty() &&
+						(precedenceCheck(operatorStack.top()) >= precedenceCheck(expression[count]))
+						&& operatorStack.top() != '(' && operatorStack.top() != ')')
+				{
+					postfixString += operatorStack.top();
+					operatorStack.pop();
+					postfixString += ' ';
+				}
+					operatorStack.push(expression[count]);
+			}
+
+			else
+			{
+				if (expression[count] != ' ')
+				{
+					throw std::runtime_error(std::string("Error: Invalid character \'") +
+							expression[count] + std::string("\' in expression \'") +
+							expression + std::string("\'\n"));
+				}
+
+				else
+				{
+					continue;
+				}
+			}
+		}
+
+		while (!operatorStack.empty())
+		{
+			postfixString += operatorStack.top();
+			postfixString += ' ';
+			operatorStack.pop();
+		}
+
+		return postfixString;
+	}
 
 /*
 	Expression Expression::infixToPostfix(const Expression infixString)
