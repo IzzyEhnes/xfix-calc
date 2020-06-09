@@ -27,6 +27,10 @@ int main()
 
 	std::cout << expr1.reverse(expr1);
 
+	expr2 = expr2 + 'X';
+
+	std::cout << expr2 << std::endl;
+
 
 	/*
 	std::string string1;

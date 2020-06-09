@@ -56,7 +56,52 @@ namespace xfix_calc
 
 
 
-	int Expression::getLength()
+	Expression operator+(const Expression &inExpression, const char c)
+	{
+		Expression temp;
+
+		int length  = inExpression.getLength();
+
+		temp.expression = inExpression.expression + c;
+
+		return temp;
+	}
+
+
+
+
+
+
+
+/*
+
+	MyString operator+(const MyString& left, const MyString& right)
+  	{
+    	MyString temp;
+    	int size = (strlen(left.mystring) + strlen(right.mystring) + 1);
+
+    	temp.mystring = new char[size];
+    	strcpy(temp.mystring, left.mystring);
+    	strcat(temp.mystring, right.mystring);
+
+    	return temp;
+  	}
+*/
+
+/*
+	Expression Expression::operator+=(Expression &append)
+	{
+    	*this = *this + append;
+
+    	return *this;
+	}
+*/
+
+
+
+
+
+	int Expression::getLength() const
 	{
 		int length = 0;
 		length = expression.length();
@@ -321,29 +366,29 @@ namespace xfix_calc
 
 
 
-	std::string infixToPostfix(std::string infixString)
+	Expression Expression::infixToPostfix(const Expression infixString)
 	{
 		std::stack<char> operatorStack;
-		std::string postfixString = "";
+		Expression postfixString;
 
-		int length = infixString.length();
+		int length = infixString.getLength();
 
 		for (int count = 0; count < length; count++)
 		{
-			if (infixString[count] == '(')
+			if (infixString.expression[count] == '(')
 			{
 				operatorStack.push('(');
 			}
 
-			else if (isalnum(infixString[count]))
+			else if (isalnum(infixString.expression[count]))
 			{
-				if (isdigit(infixString[count]))
+				if (isdigit(infixString.expression[count]))
 				{
 					std::string temp;
 
-					while (count < length && isdigit(infixString[count]))
+					while (count < length && isdigit(infixString.expression[count]))
 					{
-						temp += infixString[count];
+						temp += infixString.expression[count];
 						count++;
 					}
 
@@ -356,12 +401,12 @@ namespace xfix_calc
 
 				else
 				{
-					postfixString += infixString[count];
+					postfixString += infixString.expression[count];
 					postfixString += ' ';
 				}
 			}
 
-			else if (infixString[count] == ')')
+			else if (infixString.expression[count] == ')')
 			{
 				while (operatorStack.top() != '(' && !operatorStack.empty())
 				{
@@ -373,26 +418,26 @@ namespace xfix_calc
 					operatorStack.pop();
 			}
 
-			else if (isOperator(infixString[count]))
+			else if (isOperator(infixString.expression[count]))
 			{
 				while (!operatorStack.empty() &&
-						(precedenceCheck(operatorStack.top()) >= precedenceCheck(infixString[count]))
+						(precedenceCheck(operatorStack.top()) >= precedenceCheck(infixString.expression[count]))
 						&& operatorStack.top() != '(' && operatorStack.top() != ')')
 				{
 					postfixString += operatorStack.top();
 					operatorStack.pop();
 					postfixString += ' ';
 				}
-					operatorStack.push(infixString[count]);
+					operatorStack.push(infixString.expression[count]);
 			}
 
 			else
 			{
-				if (infixString[count] != ' ')
+				if (infixString.expression[count] != ' ')
 				{
 					throw std::runtime_error(std::string("Error: Invalid character \'") +
-											 infixString[count] + std::string("\' in expression \'") +
-											 infixString + std::string("\'\n"));
+											 infixString.expression[count] + std::string("\' in expression \'") +
+											 infixString.expression + std::string("\'\n"));
 				}
 
 				else

@@ -18,13 +18,15 @@ namespace xfix_calc
 
 			//Expression operator=(const std::string &inString);
 			friend std::ostream& operator<<(std::ostream &out, const Expression &inExpression);
+			friend Expression operator+(const Expression &inExpression, const char c);
+			Expression operator+=(Expression &append);
 
 			// Main functions
 			//double evaluateInfix(std::string inExpression);
 			//double evaluatePostfix(std::string inExpression);
 			//double evaluatePrefix(std::string inExpression);
 
-			//Expression infixToPostfix(Expression inExpression);
+			Expression infixToPostfix(const Expression inExpression);
 			//std::string infixToPrefix(std::string inExpression);
 
 			//std::string postfixToInfix(std::string inExpression);
@@ -39,7 +41,7 @@ namespace xfix_calc
 			bool isOperator(char inChar);
 			double calculate(double operand1, double operand2, char symbol);
 			Expression reverse(Expression &inExpression);
-			int getLength();
+			int getLength() const;
 
 		private:
 			std::string expression;
