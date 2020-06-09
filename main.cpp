@@ -27,7 +27,7 @@ int main()
 
 	std::cout << expr1.reverse(expr1);
 
-	expr2 = expr2 + 'X';
+	expr2 = expr2 + " * E";
 
 	std::cout << expr2 << std::endl;
 

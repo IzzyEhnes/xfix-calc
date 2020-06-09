@@ -18,8 +18,8 @@ namespace xfix_calc
 
 			//Expression operator=(const std::string &inString);
 			friend std::ostream& operator<<(std::ostream &out, const Expression &inExpression);
-			friend Expression operator+(const Expression &inExpression, const char c);
-			Expression operator+=(Expression &append);
+			friend Expression operator+(const Expression &inExpression, const std::string &inString);
+			Expression operator+=(const std::string &inString);
 
 			// Main functions
 			//double evaluateInfix(std::string inExpression);

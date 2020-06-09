@@ -56,13 +56,11 @@ namespace xfix_calc
 
 
 
-	Expression operator+(const Expression &inExpression, const char c)
+	Expression operator+(const Expression &inExpression, const std::string &inString)
 	{
 		Expression temp;
 
-		int length  = inExpression.getLength();
-
-		temp.expression = inExpression.expression + c;
+		temp.expression = inExpression.expression + inString;
 
 		return temp;
 	}
@@ -72,30 +70,13 @@ namespace xfix_calc
 
 
 
-
-/*
-
-	MyString operator+(const MyString& left, const MyString& right)
-  	{
-    	MyString temp;
-    	int size = (strlen(left.mystring) + strlen(right.mystring) + 1);
-
-    	temp.mystring = new char[size];
-    	strcpy(temp.mystring, left.mystring);
-    	strcat(temp.mystring, right.mystring);
-
-    	return temp;
-  	}
-*/
-
-/*
-	Expression Expression::operator+=(Expression &append)
+	Expression Expression::operator+=(const std::string &inString)
 	{
-    	*this = *this + append;
+    	*this = *this + inString;
 
     	return *this;
 	}
-*/
+
 
 
 
@@ -361,10 +342,10 @@ namespace xfix_calc
 		return result;
 	}
 
+*/
 
 
-
-
+/*
 
 	Expression Expression::infixToPostfix(const Expression infixString)
 	{
@@ -457,8 +438,8 @@ namespace xfix_calc
 		return postfixString;
 	}
 
-
-
+*/
+/*
 
 
 
