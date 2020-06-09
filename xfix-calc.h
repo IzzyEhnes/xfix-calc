@@ -25,7 +25,7 @@ namespace xfix_calc
 
 			// Main functions
 			//double evaluateInfix(std::string inExpression);
-			//double evaluatePostfix(std::string inExpression);
+			double evaluatePostfix();
 			//double evaluatePrefix(std::string inExpression);
 
 			//Expression infixToPostfix(const Expression inExpression);

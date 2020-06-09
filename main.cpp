@@ -86,6 +86,54 @@ int main()
 			std::cout << "After conversion to postfix, the expression is now: ";
 			std::cout << expr5.infixToPostfix() << std::endl;
 
+
+
+
+
+
+			std::cout << "\n\n\n*****************************************\n";
+			std::cout << "* Testing of function \"evaluatePostfix\" *\n";
+			std::cout << "*****************************************\n";
+
+			std::cout << std::endl;
+			expr1 = "10 + 243";
+			expr1 = expr1.infixToPostfix();
+			std::cout << "Postfix expression: ";
+			std::cout << expr1 << std::endl;
+			std::cout << "Calculated value: ";
+			std::cout << expr1.evaluatePostfix() << std::endl;
+
+			std::cout << std::endl;
+			expr2 = "(7 + 3) - 12 + 3";
+			expr2 = expr2.infixToPostfix();
+			std::cout << "Postfix expression: ";
+			std::cout << expr2 << std::endl;
+			std::cout << "Calculated value: ";
+			std::cout << expr2.evaluatePostfix() << std::endl;
+
+			std::cout << std::endl;
+			expr3 = "3 * 20 + (7 - 2)";
+			expr3 = expr3.infixToPostfix();
+			std::cout << "Postfix expression: ";
+			std::cout << expr3 << std::endl;
+			std::cout << "Calculated value: ";
+			std::cout << expr3.evaluatePostfix() << std::endl;
+
+			std::cout << std::endl;
+			expr4 = "((9 + 11) % (5 - 3)) * 3 + 7";
+			expr4 = expr4.infixToPostfix();
+			std::cout << "Postfix expression: ";
+			std::cout << expr4 << std::endl;
+			std::cout << "Calculated value: ";
+			std::cout << expr4.evaluatePostfix() << std::endl;
+
+			std::cout << std::endl;
+			expr5 = "(2 ^ 3 + (50 * 4)) / 4 ^ 2 - 20";
+			expr5 = expr5.infixToPostfix();
+			std::cout << "Postfix expression: ";
+			std::cout << expr5 << std::endl;
+			std::cout << "Calculated value: ";
+			std::cout << expr5.evaluatePostfix() << std::endl;
 		}
 
 	catch(std::string& e)

@@ -281,15 +281,15 @@ namespace xfix_calc
 	}
 
 
+*/
 
 
 
-
-	double evaluatePostfix(std::string postfixString)
+	double Expression::evaluatePostfix()
 	{
 		std::stack<int> stack;
 
-		int length = postfixString.length();
+		int length = expression.length();
 		std::string tempString = "";
 		double tempNum = 0;
 
@@ -299,13 +299,13 @@ namespace xfix_calc
 		{
 
 			// if current char is an operand
-			if (isdigit(postfixString[count]))
+			if (isdigit(expression[count]))
 			{
 				std::string tempString;
 
-				while (count < length && isdigit(postfixString[count]))
+				while (count < length && isdigit(expression[count]))
 				{
-						tempString += postfixString[count];
+						tempString += expression[count];
 						count++;
 				}
 
@@ -319,9 +319,9 @@ namespace xfix_calc
 
 
 			// if current char is an operator
-			else if (isOperator(postfixString[count]))
+			else if (isOperator(expression[count]))
 			{
-				char symbol = postfixString[count];
+				char symbol = expression[count];
 				int operand1, operand2;
 				operand2 = stack.top();
 				stack.pop();
@@ -333,11 +333,11 @@ namespace xfix_calc
 
 			else
 			{
-				if (postfixString[count] != ' ')
+				if (expression[count] != ' ')
 				{
 					throw std::runtime_error(std::string("Error: Invalid character \'") +
-											 postfixString[count] + std::string("\' in expression \'") +
-											 postfixString + std::string("\'\n"));
+							expression[count] + std::string("\' in expression \'") +
+							expression + std::string("\'\n"));
 				}
 
 				else
@@ -355,7 +355,7 @@ namespace xfix_calc
 
 
 
-
+/*
 
 	double evaluatePrefix(std::string prefixString)
 	{
