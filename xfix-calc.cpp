@@ -18,6 +18,12 @@
 
 namespace xfix_calc
 {
+
+
+
+
+
+
 	Expression::Expression()
 	{
 		expression = "";
@@ -50,6 +56,20 @@ namespace xfix_calc
 
 
 
+	int Expression::getLength()
+	{
+		int length = 0;
+		length = expression.length();
+
+		return length;
+	}
+
+
+
+
+
+
+/*
 	Expression Expression::operator=(const std::string &inString)
   	{
       	expression = inString;
@@ -57,7 +77,8 @@ namespace xfix_calc
       	return expression;
   	}
 
-	/*
+
+
 	bool isOperator(char inChar)
 	{
 		switch(inChar)
@@ -127,9 +148,14 @@ namespace xfix_calc
 
 
 
-	std::string reverse(std::string &inExpression)
+	Expression Expression::reverse(Expression &inExpression)
 	{
-		int length = inExpression.length();
+		int length = inExpression.getLength();
+
+		std::cout << "LENGTH: " << length;
+
+
+
 
 		// Changes open parentheses to closed parentheses and vice versa
 		for (int i = 0; i < length; i++)
@@ -152,6 +178,8 @@ namespace xfix_calc
 			inExpression[count] = inExpression[length - 1 - count];
 			inExpression[length - 1 - count] = temp;
 		}
+
+
 
 		return inExpression;
 	}

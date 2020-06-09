@@ -16,7 +16,7 @@ namespace xfix_calc
 			Expression();
 			Expression(std::string inString);
 
-			Expression operator=(const std::string &inString);
+			//Expression operator=(const std::string &inString);
 			friend std::ostream& operator<<(std::ostream &out, const Expression &inExpression);
 
 			// Main functions
@@ -38,7 +38,8 @@ namespace xfix_calc
 			//int precedenceCheck(char inOperator);
 			//bool isOperator(char inChar);
 			//double calculate(double operand1, double operand2, char symbol);
-			//std::string reverse(std::string &inExpression);
+			Expression reverse(Expression &inExpression);
+			int getLength();
 
 		private:
 			std::string expression;

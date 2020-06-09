@@ -23,6 +23,8 @@ int main()
 
 	std::cout << expr1 << std::endl;
 
+	std::cout << expr1.getLength();
+
 
 	/*
 	std::string string1;
