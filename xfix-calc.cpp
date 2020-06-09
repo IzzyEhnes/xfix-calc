@@ -106,17 +106,6 @@ namespace xfix_calc
 
 
 
-
-/*
-	Expression Expression::operator=(const std::string &inString)
-  	{
-      	expression = inString;
-
-      	return expression;
-  	}
-
-
-
 	bool isOperator(char inChar)
 	{
 		switch(inChar)
@@ -208,6 +197,19 @@ namespace xfix_calc
 			return 0;
 		}
 	}
+
+
+
+
+
+
+/*
+	Expression Expression::operator=(const std::string &inString)
+  	{
+      	expression = inString;
+
+      	return expression;
+  	}
 
 
 

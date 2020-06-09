@@ -35,9 +35,9 @@ namespace xfix_calc
 
 
 			// Helper functions
-			//int precedenceCheck(char inOperator);
-			//bool isOperator(char inChar);
-			//double calculate(double operand1, double operand2, char symbol);
+			int precedenceCheck(char inOperator);
+			bool isOperator(char inChar);
+			double calculate(double operand1, double operand2, char symbol);
 			Expression reverse(Expression &inExpression);
 			int getLength();
 
