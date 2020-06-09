@@ -69,6 +69,44 @@ namespace xfix_calc
 
 
 
+	Expression Expression::reverse(Expression &inExpression)
+	{
+
+		int length = inExpression.getLength();
+
+
+		// Changes open parentheses to closed parentheses and vice versa
+		for (int i = 0; i < length; i++)
+		{
+			if (inExpression.expression[i] == '(')
+			{
+				inExpression.expression[i] = ')';
+			}
+
+			else if (inExpression.expression[i] == ')')
+			{
+				inExpression.expression[i] = '(';
+			}
+		}
+
+		// Reverses the string
+		for (int count = 0; count < length/2; count++)
+		{
+			char temp = inExpression.expression[count];
+			inExpression.expression[count] = inExpression.expression[length - 1 - count];
+			inExpression.expression[length - 1 - count] = temp;
+		}
+
+
+		return inExpression;
+	}
+
+
+
+
+
+
+
 /*
 	Expression Expression::operator=(const std::string &inString)
   	{
@@ -141,47 +179,6 @@ namespace xfix_calc
 		}
 
 		return result;
-	}
-
-
-
-
-
-
-	Expression Expression::reverse(Expression &inExpression)
-	{
-		int length = inExpression.getLength();
-
-		std::cout << "LENGTH: " << length;
-
-
-
-
-		// Changes open parentheses to closed parentheses and vice versa
-		for (int i = 0; i < length; i++)
-		{
-			if (inExpression[i] == '(')
-			{
-				inExpression[i] = ')';
-			}
-
-			else if (inExpression[i] == ')')
-			{
-				inExpression[i] = '(';
-			}
-		}
-
-		// Reverses the string
-		for (int count = 0; count < length/2; count++)
-		{
-			char temp = inExpression[count];
-			inExpression[count] = inExpression[length - 1 - count];
-			inExpression[length - 1 - count] = temp;
-		}
-
-
-
-		return inExpression;
 	}
 
 

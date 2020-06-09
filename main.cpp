@@ -13,7 +13,7 @@ using namespace xfix_calc;
 int main()
 {
 	Expression expr1;
-	std::string str1 = "A + B";
+	std::string str1 = "(A + B) - C * (D / E)";
 	Expression expr2("C - D");
 
 	std::cout << str1 << std::endl;
@@ -23,7 +23,9 @@ int main()
 
 	std::cout << expr1 << std::endl;
 
-	std::cout << expr1.getLength();
+	std::cout << expr1.getLength() << std::endl;
+
+	std::cout << expr1.reverse(expr1);
 
 
 	/*
