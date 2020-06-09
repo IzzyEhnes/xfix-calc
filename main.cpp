@@ -25,9 +25,13 @@ int main()
 
 	std::cout << expr1.getLength() << std::endl;
 
-	std::cout << expr1.reverse(expr1);
+	std::cout << expr1.reverse(expr1) << std::endl;
 
 	expr2 = expr2 + " * E";
+
+	std::cout << expr2 << std::endl;
+
+	expr2 += " / F";
 
 	std::cout << expr2 << std::endl;
 

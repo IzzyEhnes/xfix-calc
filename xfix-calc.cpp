@@ -70,6 +70,32 @@ namespace xfix_calc
 
 
 
+	Expression Expression::operator+=(const char &inChar)
+	{
+    	*this = *this + inChar;
+
+    	return *this;
+	}
+
+
+
+
+
+
+	Expression operator+(const Expression &inExpression, const char &inChar)
+	{
+		Expression temp;
+
+		temp.expression = inExpression.expression + inChar;
+
+		return temp;
+	}
+
+
+
+
+
+
 	Expression Expression::operator+=(const std::string &inString)
 	{
     	*this = *this + inString;
@@ -132,7 +158,7 @@ namespace xfix_calc
 
 
 
-	bool isOperator(char inChar)
+	bool Expression::isOperator(char inChar)
 	{
 		switch(inChar)
 		{
@@ -154,7 +180,7 @@ namespace xfix_calc
 
 
 
-	double calculate(double operand1, double operand2, char symbol)
+	double Expression::calculate(double operand1, double operand2, char symbol)
 	{
 		double result = 0;
 
@@ -201,7 +227,7 @@ namespace xfix_calc
 
 
 
-	int precedenceCheck(char inOperator)
+	int Expression::precedenceCheck(char inOperator)
 	{
 		if (inOperator == '^')
 		{
@@ -346,7 +372,6 @@ namespace xfix_calc
 
 
 /*
-
 	Expression Expression::infixToPostfix(const Expression infixString)
 	{
 		std::stack<char> operatorStack;
