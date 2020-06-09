@@ -5,7 +5,6 @@
  * LAST MODIFIED: June 8, 2020 *
  ******************************/
 
-
 #include <iostream>
 #include "xfix-calc.h"
 
@@ -13,6 +12,19 @@ using namespace xfix_calc;
 
 int main()
 {
+	Expression expr1;
+	std::string str1 = "A + B";
+	Expression expr2("C - D");
+
+	std::cout << str1 << std::endl;
+	std::cout << expr2 << std::endl;
+
+	expr1 = str1;
+
+	std::cout << expr1 << std::endl;
+
+
+	/*
 	std::string string1;
 	std::string string2;
 	std::string string3;
@@ -479,4 +491,6 @@ int main()
 	{
 		std::cout << e;
 	}
+
+	*/
 }

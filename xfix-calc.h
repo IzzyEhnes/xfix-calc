@@ -10,26 +10,39 @@
 
 namespace xfix_calc
 {
-	// Main functions
-	double evaluateInfix(std::string inExpression);
-	double evaluatePostfix(std::string inExpression);
-	double evaluatePrefix(std::string inExpression);
+	class Expression
+	{
+		public:
+			Expression();
+			Expression(std::string inString);
 
-	std::string infixToPostfix(std::string inExpression);
-	std::string infixToPrefix(std::string inExpression);
+			Expression operator=(const std::string &inString);
+			friend std::ostream& operator<<(std::ostream &out, const Expression &inExpression);
 
-	std::string postfixToInfix(std::string inExpression);
-	std::string prefixToInfix(std::string inExpression);
+			// Main functions
+			//double evaluateInfix(std::string inExpression);
+			//double evaluatePostfix(std::string inExpression);
+			//double evaluatePrefix(std::string inExpression);
 
-	std::string prefixToPostfix(std::string inExpression);
-	std::string postfixToPrefix(std::string inExpression);
+			//Expression infixToPostfix(Expression inExpression);
+			//std::string infixToPrefix(std::string inExpression);
+
+			//std::string postfixToInfix(std::string inExpression);
+			//std::string prefixToInfix(std::string inExpression);
+
+			//std::string prefixToPostfix(std::string inExpression);
+			//std::string postfixToPrefix(std::string inExpression);
 
 
-	// Helper functions
-	int precedenceCheck(char inOperator);
-	bool isOperator(char inChar);
-	double calculate(double operand1, double operand2, char symbol);
-	std::string reverse(std::string &inExpression);
+			// Helper functions
+			//int precedenceCheck(char inOperator);
+			//bool isOperator(char inChar);
+			//double calculate(double operand1, double operand2, char symbol);
+			//std::string reverse(std::string &inExpression);
+
+		private:
+			std::string expression;
+	};
 }
 
 #endif /* XFIX_CALC_H_ */

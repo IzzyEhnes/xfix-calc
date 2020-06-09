@@ -18,6 +18,46 @@
 
 namespace xfix_calc
 {
+	Expression::Expression()
+	{
+		expression = "";
+	}
+
+
+
+
+
+
+	Expression::Expression(std::string inString)
+	{
+		expression = inString;
+	}
+
+
+
+
+
+
+	std::ostream& operator<<(std::ostream &out, const Expression &inExpression)
+  	{
+    	out << inExpression.expression;
+
+    	return out;
+  	}
+
+
+
+
+
+
+	Expression Expression::operator=(const std::string &inString)
+  	{
+      	expression = inString;
+
+      	return expression;
+  	}
+
+	/*
 	bool isOperator(char inChar)
 	{
 		switch(inChar)
@@ -532,4 +572,6 @@ namespace xfix_calc
 
 		return prefixString;
 	}
+
+	*/
 }
