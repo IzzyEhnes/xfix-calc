@@ -34,7 +34,7 @@ namespace xfix_calc
 			Expression infixToPrefix();
 
 			Expression postfixToInfix();
-			//std::string prefixToInfix(std::string inExpression);
+			Expression prefixToInfix();
 
 			//std::string prefixToPostfix(std::string inExpression);
 			//std::string postfixToPrefix(std::string inExpression);
@@ -45,6 +45,7 @@ namespace xfix_calc
 			bool isOperator(char inChar);
 			double calculate(double operand1, double operand2, char symbol);
 			Expression reverse(Expression &inExpression);
+			std::string reverse(std::string &inString);
 			int getLength() const;
 
 		private:

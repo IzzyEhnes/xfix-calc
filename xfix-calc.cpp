@@ -158,6 +158,40 @@ namespace xfix_calc
 
 
 
+	std::string Expression::reverse(std::string &inExpression)
+	{
+		int length = inExpression.length();
+
+		// Changes open parentheses to closed parentheses and vice versa
+		for (int i = 0; i < length; i++)
+		{
+			if (inExpression[i] == '(')
+			{
+				inExpression[i] = ')';
+			}
+
+			else if (inExpression[i] == ')')
+			{
+				inExpression[i] = '(';
+			}
+		}
+
+		// Reverses the string
+		for (int count = 0; count < length/2; count++)
+		{
+			char temp = inExpression[count];
+			inExpression[count] = inExpression[length - 1 - count];
+			inExpression[length - 1 - count] = temp;
+		}
+
+		return inExpression;
+	}
+
+
+
+
+
+
 	bool Expression::isOperator(char inChar)
 	{
 		switch(inChar)
@@ -471,11 +505,11 @@ namespace xfix_calc
 	{
 		Expression postfixExpression;
 		Expression prefixExpression;
-		Expression reversedExpression;
+		Expression reversedInfixExpression;
 
-		reversedExpression = reverse(*this);
+		reversedInfixExpression = reverse(*this);
 
-		postfixExpression = reversedExpression.infixToPostfix();
+		postfixExpression = reversedInfixExpression.infixToPostfix();
 		prefixExpression = reverse(postfixExpression);
 
 		return prefixExpression;
@@ -553,21 +587,22 @@ namespace xfix_calc
 
 
 
-/*
 
 
-	std::string prefixToInfix(std::string prefixString)
+
+	Expression Expression::prefixToInfix()
 	{
 		std::stack<std::string> stack;
-		std::string infixString = "";
+		Expression infixExpression;
+		Expression reversedPrefixExpression;
 
-		int length = prefixString.size();
-		std::string reversedString = reverse(prefixString);
+		int length = this->getLength();
+		reversedPrefixExpression = reverse(*this);
 
 
 		for (int count = 0; count < length; count++)
 		{
-			if (isOperator(reversedString[count]))
+			if (isOperator(reversedPrefixExpression.expression[count]))
 			{
 				std::string operand1 = stack.top();
 				stack.pop();
@@ -575,20 +610,20 @@ namespace xfix_calc
 				std::string operand2 = stack.top();
 				stack.pop();
 
-				std::string temp = "(" + operand1 + ' ' + reversedString[count] + ' ' + operand2 + ")";
+				std::string temp = "(" + operand1 + ' ' + reversedPrefixExpression.expression[count] + ' ' + operand2 + ")";
 
 				stack.push(temp);
 			}
 
-			else if (isalnum(reversedString[count]))
+			else if (isalnum(reversedPrefixExpression.expression[count]))
 			{
-				if (isdigit(reversedString[count]))
+				if (isdigit(reversedPrefixExpression.expression[count]))
 				{
 					std::string tempString;
 
-					while (count < length && isdigit(reversedString[count]))
+					while (count < length && isdigit(reversedPrefixExpression.expression[count]))
 					{
-						tempString += reversedString[count];
+						tempString += reversedPrefixExpression.expression[count];
 						count++;
 					}
 
@@ -600,17 +635,17 @@ namespace xfix_calc
 
 				else
 				{
-					stack.push(std::string(1, reversedString[count]));
+					stack.push(std::string(1, reversedPrefixExpression.expression[count]));
 				}
 			}
 
 			else
 			{
-				if (reversedString[count] != ' ')
+				if (reversedPrefixExpression.expression[count] != ' ')
 				{
 					throw std::runtime_error(std::string("Error: Invalid character \'") +
-											 reversedString[count] + std::string("\' in expression \'") +
-											 reversedString + std::string("\'\n"));
+							reversedPrefixExpression.expression[count] + std::string("\' in expression \'") +
+							reversedPrefixExpression.expression + std::string("\'\n"));
 				}
 
 				else
@@ -620,14 +655,14 @@ namespace xfix_calc
 			}
 		  }
 
-		infixString = stack.top();
-		return infixString;
+		infixExpression = stack.top();
+		return infixExpression;
 	}
 
 
 
 
-
+/*
 
 	std::string prefixToPostfix(std::string prefixString)
 	{

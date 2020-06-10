@@ -135,6 +135,70 @@ int main()
 
 
 
+			std::cout << "\n\n\n***************************************\n";
+			std::cout << "* Testing of function \"prefixToInfix\" *\n";
+			std::cout << "***************************************\n";
+
+			std::cout << std::endl;
+			expr1 = "A + B";
+			std::cout << "Infix expression: ";
+			std::cout << expr1 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			expr1 = expr1.infixToPrefix();
+			std::cout << expr1 << std::endl;
+			std::cout << "After conversion back to infix, the expression is now: ";
+			expr1 = expr1.prefixToInfix();
+			std::cout << expr1 << std::endl;
+
+			std::cout << std::endl;
+			expr2 = "(A + B) * (C - D)";
+			std::cout << "Infix expression: ";
+			std::cout << expr2 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			expr2 = expr2.infixToPrefix();
+			std::cout << expr2 << std::endl;
+			std::cout << "After conversion back to infix, the expression is now: ";
+			expr2 = expr2.prefixToInfix();
+			std::cout << expr2 << std::endl;
+
+			std::cout << std::endl;
+			expr3 = "A - (B + C * D) / E";
+			std::cout << "Infix expression: ";
+			std::cout << expr3 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			expr3 = expr3.infixToPrefix();
+			std::cout << expr3 << std::endl;
+			std::cout << "After conversion back to infix, the expression is now: ";
+			expr3 = expr3.prefixToInfix();
+			std::cout << expr3 << std::endl;
+
+			std::cout << std::endl;
+			expr4 = "A ^ B / C * (D + E)";
+			std::cout << "Infix expression: ";
+			std::cout << expr4 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			expr4 = expr4.infixToPrefix();
+			std::cout << expr4 << std::endl;
+			std::cout << "After conversion back to infix, the expression is now: ";
+			expr4 = expr4.prefixToInfix();
+			std::cout << expr4 << std::endl;
+
+			std::cout << std::endl;
+			expr5 = "A + B * (C - D ^ E) / F ^ G";
+			std::cout << "Infix expression: ";
+			std::cout << expr5 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			expr5 = expr5.infixToPrefix();
+			std::cout << expr5 << std::endl;
+			std::cout << "After conversion back to infix, the expression is now: ";
+			expr5 = expr5.prefixToInfix();
+			std::cout << expr5 << std::endl;
+
+
+
+
+
+
 			std::cout << "\n\n\n****************************************\n";
 			std::cout << "* Testing of function \"postfixToInfix\" *\n";
 			std::cout << "****************************************\n";
