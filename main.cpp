@@ -313,6 +313,55 @@ int main()
 
 
 			std::cout << "\n\n\n*****************************************\n";
+			std::cout << "* Testing of function \"postfixToPrefix\" *\n";
+			std::cout << "*****************************************\n";
+
+			std::cout << std::endl;
+			expr1 = "A B +";
+			std::cout << "Postfix expression: ";
+			std::cout << expr1 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			expr1 = expr1.postfixToPrefix();
+			std::cout << expr1 << std::endl;
+
+			std::cout << std::endl;
+			expr2 = "A B + C D - *";
+			std::cout << "Postfix expression: ";
+			std::cout << expr2 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			expr2 = expr2.postfixToPrefix();
+			std::cout << expr2 << std::endl;
+
+			std::cout << std::endl;
+			expr3 = "A B C D * + E / -";
+			std::cout << "Postfix expression: ";
+			std::cout << expr3 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			expr3 = expr3.postfixToPrefix();
+			std::cout << expr3 << std::endl;
+
+			std::cout << std::endl;
+			expr4 = "A B ^ C D E + * /";
+			std::cout << "Postfix expression: ";
+			std::cout << expr4 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			expr4 = expr4.postfixToPrefix();
+			std::cout << expr4 << std::endl;
+
+			std::cout << std::endl;
+			expr5 = "A B C D E ^ - F G ^ / * +";
+			std::cout << "Postfix expression: ";
+			std::cout << expr5 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			expr5 = expr5.postfixToPrefix();
+			std::cout << expr5 << std::endl;
+
+
+
+
+
+
+			std::cout << "\n\n\n*****************************************\n";
 			std::cout << "* Testing of function \"evaluateInfix\" *\n";
 			std::cout << "*****************************************\n";
 
