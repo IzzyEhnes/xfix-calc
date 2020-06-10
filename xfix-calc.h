@@ -24,7 +24,7 @@ namespace xfix_calc
 			Expression operator+=(const char &inChar);
 
 			// Main functions
-			//double evaluateInfix(std::string inExpression);
+			double evaluateInfix();
 			double evaluatePostfix();
 			//double evaluatePrefix(std::string inExpression);
 

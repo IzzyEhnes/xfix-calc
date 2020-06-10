@@ -92,6 +92,50 @@ int main()
 
 
 			std::cout << "\n\n\n*****************************************\n";
+			std::cout << "* Testing of function \"evaluateInfix\" *\n";
+			std::cout << "*****************************************\n";
+
+			std::cout << std::endl;
+			expr1 = "10 % 5";
+			std::cout << "Infix expression: ";
+			std::cout << expr1 << std::endl;
+			std::cout << "Calculated value: ";
+			std::cout << expr1.evaluateInfix() << std::endl;
+
+			std::cout << std::endl;
+			expr2 = "(7 + 3) - 12 + 3";
+			std::cout << "Infix expression: ";
+			std::cout << expr2 << std::endl;
+			std::cout << "Calculated value: ";
+			std::cout << expr2.evaluateInfix() << std::endl;
+
+			std::cout << std::endl;
+			expr3 = "3 * 20 + (7 - 2)";
+			std::cout << "Infix expression: ";
+			std::cout << expr3 << std::endl;
+			std::cout << "Calculated value: ";
+			std::cout << expr3.evaluateInfix() << std::endl;
+
+			std::cout << std::endl;
+			expr4 = "((9 + 11) / (5 - 3)) * 3 + 7";
+			std::cout << "Infix expression: ";
+			std::cout << expr4 << std::endl;
+			std::cout << "Calculated value: ";
+			std::cout << expr4.evaluateInfix() << std::endl;
+
+			std::cout << std::endl;
+			expr5 = "(2 ^ 3 + (50 * 4)) / 4 ^ 2 - 20";
+			std::cout << "Infix expression: ";
+			std::cout << expr5 << std::endl;
+			std::cout << "Calculated value: ";
+			std::cout << expr5.evaluateInfix() << std::endl;
+
+
+
+
+
+
+			std::cout << "\n\n\n*****************************************\n";
 			std::cout << "* Testing of function \"evaluatePostfix\" *\n";
 			std::cout << "*****************************************\n";
 

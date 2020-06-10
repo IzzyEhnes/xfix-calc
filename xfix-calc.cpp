@@ -264,24 +264,25 @@ namespace xfix_calc
   	}
 
 
-/*
 
 
-	double evaluateInfix(std::string infixString)
+
+
+	double Expression::evaluateInfix()
 	{
 		double result = 0;
-		std::string postfixString = "";
+		Expression postfixExpression;
 
-		postfixString = infixToPostfix(infixString);
+		postfixExpression = this->infixToPostfix();
 
-		result = evaluatePostfix(postfixString);
+		result = postfixExpression.evaluatePostfix();
 
 
 		return result;
 	}
 
 
-*/
+
 
 
 
