@@ -13,9 +13,11 @@ namespace xfix_calc
 	class Expression
 	{
 		public:
+			// Constructors
 			Expression();
 			Expression(std::string inString);
 
+			// Overloaded operators
 			Expression operator=(const std::string &inString);
 			friend std::ostream& operator<<(std::ostream &out, const Expression &inExpression);
 			friend Expression operator+(const Expression &inExpression, const std::string &inString);
@@ -28,9 +30,8 @@ namespace xfix_calc
 			double evaluatePostfix();
 			//double evaluatePrefix(std::string inExpression);
 
-			//Expression infixToPostfix(const Expression inExpression);
 			Expression infixToPostfix();
-			//std::string infixToPrefix(std::string inExpression);
+			Expression infixToPrefix();
 
 			//std::string postfixToInfix(std::string inExpression);
 			//std::string prefixToInfix(std::string inExpression);

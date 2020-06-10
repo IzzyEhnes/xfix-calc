@@ -462,121 +462,29 @@ namespace xfix_calc
 		return postfixString;
 	}
 
-/*
-	Expression Expression::infixToPostfix(const Expression infixString)
+
+
+
+
+
+	Expression Expression::infixToPrefix()
 	{
-		std::stack<char> operatorStack;
-		Expression postfixString;
+		Expression postfixExpression;
+		Expression prefixExpression;
+		Expression reversedExpression;
 
-		int length = infixString.getLength();
+		reversedExpression = reverse(*this);
 
-		for (int count = 0; count < length; count++)
-		{
-			if (infixString.expression[count] == '(')
-			{
-				operatorStack.push('(');
-			}
+		postfixExpression = reversedExpression.infixToPostfix();
+		prefixExpression = reverse(postfixExpression);
 
-			else if (isalnum(infixString.expression[count]))
-			{
-				if (isdigit(infixString.expression[count]))
-				{
-					std::string temp;
-
-					while (count < length && isdigit(infixString.expression[count]))
-					{
-						temp += infixString.expression[count];
-						count++;
-					}
-
-					count--;
-
-					postfixString += temp;
-					postfixString += ' ';
-
-				}
-
-				else
-				{
-					postfixString += infixString.expression[count];
-					postfixString += ' ';
-				}
-			}
-
-			else if (infixString.expression[count] == ')')
-			{
-				while (operatorStack.top() != '(' && !operatorStack.empty())
-				{
-					postfixString += operatorStack.top();
-					postfixString += ' ';
-
-					operatorStack.pop();
-				}
-					operatorStack.pop();
-			}
-
-			else if (isOperator(infixString.expression[count]))
-			{
-				while (!operatorStack.empty() &&
-						(precedenceCheck(operatorStack.top()) >= precedenceCheck(infixString.expression[count]))
-						&& operatorStack.top() != '(' && operatorStack.top() != ')')
-				{
-					postfixString += operatorStack.top();
-					operatorStack.pop();
-					postfixString += ' ';
-				}
-					operatorStack.push(infixString.expression[count]);
-			}
-
-			else
-			{
-				if (infixString.expression[count] != ' ')
-				{
-					throw std::runtime_error(std::string("Error: Invalid character \'") +
-											 infixString.expression[count] + std::string("\' in expression \'") +
-											 infixString.expression + std::string("\'\n"));
-				}
-
-				else
-				{
-					continue;
-				}
-			}
-		}
-
-		while (!operatorStack.empty())
-		{
-			postfixString += operatorStack.top();
-			postfixString += ' ';
-			operatorStack.pop();
-		}
-
-		return postfixString;
-	}
-
-*/
-/*
-
-
-
-	std::string infixToPrefix(std::string infixString)
-	{
-		std::stack<char> operatorStack;
-		std::stack<char> operandStack;
-		std::string postfixExp = "";
-		std::string prefixExp = "";
-		std::string reversedExp = reverse(infixString);
-
-		postfixExp = infixToPostfix(reversedExp);
-		prefixExp = reverse(postfixExp);
-
-		return prefixExp;
+		return prefixExpression;
 	}
 
 
 
 
-
+/*
 
 	std::string postfixToInfix(std::string postfixString)
 	{

@@ -91,6 +91,50 @@ int main()
 
 
 
+			std::cout << "\n\n\n***************************************\n";
+			std::cout << "* Testing of function \"infixToPrefix\" *\n";
+			std::cout << "***************************************\n";
+
+			std::cout << std::endl;
+			expr1 = "A + B";
+			std::cout << "Infix expression: ";
+			std::cout << expr1 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			std::cout << expr1.infixToPrefix() << std::endl;
+
+			std::cout << std::endl;
+			expr2 = "(A + B) * (C - D)";
+			std::cout << "Infix expression: ";
+			std::cout << expr2 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			std::cout << expr2.infixToPrefix() << std::endl;
+
+			std::cout << std::endl;
+			expr3 = "A - (B + C * D) / E";
+			std::cout << "Infix expression: ";
+			std::cout << expr3 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			std::cout << expr3.infixToPrefix() << std::endl;
+
+			std::cout << std::endl;
+			expr4 = "A ^ B / C * (D + E)";
+			std::cout << "Infix expression: ";
+			std::cout << expr4 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			std::cout << expr4.infixToPrefix() << std::endl;
+
+			std::cout << std::endl;
+			expr5 = "A + B * (C - D ^ E) / F ^ G";
+			std::cout << "Infix expression: ";
+			std::cout << expr5 << std::endl;
+			std::cout << "After conversion to prefix, the expression is now: ";
+			std::cout << expr5.infixToPrefix() << std::endl;
+
+
+
+
+
+
 			std::cout << "\n\n\n*****************************************\n";
 			std::cout << "* Testing of function \"evaluateInfix\" *\n";
 			std::cout << "*****************************************\n";
