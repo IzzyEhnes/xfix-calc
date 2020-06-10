@@ -135,6 +135,70 @@ int main()
 
 
 
+			std::cout << "\n\n\n****************************************\n";
+			std::cout << "* Testing of function \"postfixToInfix\" *\n";
+			std::cout << "****************************************\n";
+
+			std::cout << std::endl;
+			expr1 = "A + B";
+			std::cout << "Infix expression: ";
+			std::cout << expr1 << std::endl;
+			std::cout << "After conversion to postfix, the expression is now: ";
+			expr1 = expr1.infixToPostfix();
+			std::cout << expr1 << std::endl;
+			std::cout << "After conversion back to infix, the expression is now: ";
+			expr1 = expr1.postfixToInfix();
+			std::cout << expr1 << std::endl;
+
+			std::cout << std::endl;
+			expr2 = "(A + B) * (C - D)";
+			std::cout << "Infix expression: ";
+			std::cout << expr2 << std::endl;
+			std::cout << "After conversion to postfix, the expression is now: ";
+			expr2 = expr2.infixToPostfix();
+			std::cout << expr2 << std::endl;
+			std::cout << "After conversion back to infix, the expression is now: ";
+			expr2 = expr2.postfixToInfix();
+			std::cout << expr2 << std::endl;
+
+			std::cout << std::endl;
+			expr3 = "A - (B + C * D) / E";
+			std::cout << "Infix expression: ";
+			std::cout << expr3 << std::endl;
+			std::cout << "After conversion to postfix, the expression is now: ";
+			expr3 = expr3.infixToPostfix();
+			std::cout << expr3 << std::endl;
+			std::cout << "After conversion back to infix, the expression is now: ";
+			expr3 = expr3.postfixToInfix();
+			std::cout << expr3 << std::endl;
+
+			std::cout << std::endl;
+			expr4 = "A ^ B / C * (D + E)";
+			std::cout << "Infix expression: ";
+			std::cout << expr4 << std::endl;
+			std::cout << "After conversion to postfix, the expression is now: ";
+			expr4 = expr4.infixToPostfix();
+			std::cout << expr4 << std::endl;
+			std::cout << "After conversion back to infix, the expression is now: ";
+			expr4 = expr4.postfixToInfix();
+			std::cout << expr4 << std::endl;
+
+			std::cout << std::endl;
+			expr5 = "A + B * (C - D ^ E) / F ^ G";
+			std::cout << "Infix expression: ";
+			std::cout << expr5 << std::endl;
+			std::cout << "After conversion to postfix, the expression is now: ";
+			expr5 = expr5.infixToPostfix();
+			std::cout << expr5 << std::endl;
+			std::cout << "After conversion back to infix, the expression is now: ";
+			expr5 = expr5.postfixToInfix();
+			std::cout << expr5 << std::endl;
+
+
+
+
+
+
 			std::cout << "\n\n\n*****************************************\n";
 			std::cout << "* Testing of function \"evaluateInfix\" *\n";
 			std::cout << "*****************************************\n";

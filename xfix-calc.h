@@ -33,7 +33,7 @@ namespace xfix_calc
 			Expression infixToPostfix();
 			Expression infixToPrefix();
 
-			//std::string postfixToInfix(std::string inExpression);
+			Expression postfixToInfix();
 			//std::string prefixToInfix(std::string inExpression);
 
 			//std::string prefixToPostfix(std::string inExpression);

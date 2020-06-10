@@ -290,7 +290,7 @@ namespace xfix_calc
 	{
 		std::stack<int> stack;
 
-		int length = expression.length();
+		int length = this->getLength();
 		std::string tempString = "";
 		double tempNum = 0;
 
@@ -376,7 +376,7 @@ namespace xfix_calc
 		std::stack<char> operatorStack;
 		Expression postfixString;
 
-		int length = expression.length();
+		int length = this->getLength();
 
 		for (int count = 0; count < length; count++)
 		{
@@ -484,17 +484,17 @@ namespace xfix_calc
 
 
 
-/*
 
-	std::string postfixToInfix(std::string postfixString)
+
+	Expression Expression::postfixToInfix()
 	{
 		std::stack<std::string> stack;
-		int length = postfixString.size();
-		std::string infixString = "";
+		int length = this->getLength();
+		Expression infixExpression;
 
 		for (int count = 0; count < length; count++)
 		{
-			if (isOperator(postfixString[count]))
+			if (isOperator(expression[count]))
 			{
 				std::string operand1 = stack.top();
 				stack.pop();
@@ -502,20 +502,20 @@ namespace xfix_calc
 				std::string operand2 = stack.top();
 				stack.pop();
 
-				std::string temp = "(" + operand2 + ' ' + postfixString[count] + ' ' + operand1 + ")";
+				std::string temp = "(" + operand2 + ' ' + expression[count] + ' ' + operand1 + ")";
 
 				stack.push(temp);
 			}
 
-			else if (isalnum(postfixString[count]))
+			else if (isalnum(expression[count]))
 			{
-				if (isdigit(postfixString[count]))
+				if (isdigit(expression[count]))
 				{
 					std::string tempString;
 
-					while (count < length && isdigit(postfixString[count]))
+					while (count < length && isdigit(expression[count]))
 					{
-						tempString += postfixString[count];
+						tempString += expression[count];
 						count++;
 					}
 
@@ -527,17 +527,17 @@ namespace xfix_calc
 
 				else
 				{
-					stack.push(std::string(1, postfixString[count]));
+					stack.push(std::string(1, expression[count]));
 				}
 			}
 
 			else
 			{
-				if (postfixString[count] != ' ')
+				if (expression[count] != ' ')
 				{
 					throw std::runtime_error(std::string("Error: Invalid character \'") +
-											 postfixString[count] + std::string("\' in expression \'") +
-											 postfixString + std::string("\'\n"));
+							expression[count] + std::string("\' in expression \'") +
+							expression + std::string("\'\n"));
 				}
 
 				else
@@ -547,13 +547,13 @@ namespace xfix_calc
 			}
 		}
 
-		infixString = stack.top();
-		return infixString;
+		infixExpression = stack.top();
+		return infixExpression;
 	}
 
 
 
-
+/*
 
 
 	std::string prefixToInfix(std::string prefixString)
