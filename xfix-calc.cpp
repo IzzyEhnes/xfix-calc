@@ -390,19 +390,22 @@ namespace xfix_calc
 
 
 
-/*
 
-	double evaluatePrefix(std::string prefixString)
+
+	double Expression::evaluatePrefix()
 	{
 		double result = 0;
+		Expression postfixExpression;
 
-		std::string postfixString = prefixToPostfix(prefixString);
-		result = evaluatePostfix(postfixString);
+		postfixExpression = this->prefixToPostfix();
+		result = postfixExpression.evaluatePostfix();
 
 		return result;
 	}
 
-*/
+
+
+
 
 
 	Expression Expression::infixToPostfix()
