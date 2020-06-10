@@ -662,20 +662,23 @@ namespace xfix_calc
 
 
 
-/*
 
-	std::string prefixToPostfix(std::string prefixString)
+
+	Expression Expression::prefixToPostfix()
 	{
-		std::string infixString = prefixToInfix(prefixString);
-		std::string postfixString = infixToPostfix(infixString);
+		Expression infixExpression;
+		Expression postfixExpression;
 
-		return postfixString;
+		infixExpression = this->prefixToInfix();
+		postfixExpression = infixExpression.infixToPostfix();
+
+		return postfixExpression;
 	}
 
 
 
 
-
+/*
 
 	std::string postfixToPrefix(std::string postfixString)
 	{
