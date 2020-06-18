@@ -1,9 +1,9 @@
-/*******************************
- * AUTHOR: Izzy Ehnes          *
- * FILE: main.cpp              *
- * CREATED: March 5, 2019      *
- * LAST MODIFIED: June 8, 2020 *
- ******************************/
+/********************************
+ * AUTHOR: Izzy Ehnes           *
+ * FILE: main.cpp               *
+ * CREATED: March 5, 2019       *
+ * LAST MODIFIED: June 18, 2020 *
+ *******************************/
 
 #include <iostream>
 #include "xfix-calc.h"
@@ -46,7 +46,6 @@ int main()
 
 	try
 		{
-			std::cout << std::endl;
 			std::cout << "****************************************\n";
 			std::cout << "* Testing of function \"infixToPostfix\" *\n";
 			std::cout << "****************************************\n";
@@ -362,7 +361,7 @@ int main()
 
 
 			std::cout << "\n\n\n*****************************************\n";
-			std::cout << "* Testing of function \"evaluateInfix\" *\n";
+			std::cout << "* Testing of function \"evaluateInfix\"   *\n";
 			std::cout << "*****************************************\n";
 
 			std::cout << std::endl;
@@ -406,7 +405,7 @@ int main()
 
 
 			std::cout << "\n\n\n*****************************************\n";
-			std::cout << "* Testing of function \"evaluatePrefix\" *\n";
+			std::cout << "* Testing of function \"evaluatePrefix\"  *\n";
 			std::cout << "*****************************************\n";
 
 			std::cout << std::endl;

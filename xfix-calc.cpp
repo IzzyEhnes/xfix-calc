@@ -1,9 +1,9 @@
-/*******************************
- * AUTHOR: Izzy Ehnes          *
- * FILE: xfix-calc.cpp         *
- * CREATED: March 5, 2019      *
- * LAST MODIFIED: June 8, 2020 *
- ******************************/
+/********************************
+ * AUTHOR: Izzy Ehnes           *
+ * FILE: xfix-calc.cpp          *
+ * CREATED: March 5, 2019       *
+ * LAST MODIFIED: June 18, 2020 *
+ *******************************/
 
 #include <iostream>
 #include <stack>
@@ -121,6 +121,82 @@ namespace xfix_calc
 
 
 
+	void Expression::isValid() const
+	{
+		int numOperators = 0;
+		int numOperands = 0;
+		int length = this->getLength();
+
+		for (int count = 0; count < length; count++)
+		{
+			if (isalnum(expression[count]))
+			{
+				if (isdigit(expression[count]))
+				{
+					std::string temp;
+
+					while (count < length && isdigit(expression[count]))
+					{
+						temp += expression[count];
+						count++;
+					}
+
+					count--;
+
+					numOperands++;
+
+				}
+
+				else
+				{
+					numOperands++;
+				}
+			}
+
+			else if (isOperator(expression[count]))
+			{
+				numOperators++;
+			}
+
+			else
+			{
+				if (expression[count] == '(' || expression[count] == ')' || expression[count] == ' ')
+				{
+					continue;
+				}
+
+				else
+				{
+					throw std::runtime_error(std::string("Error: Invalid character \'") +
+						  expression[count] + std::string("\' in expression \'") +
+						  expression + std::string("\'\n"));
+				}
+			}
+		}
+
+
+
+		if (numOperators == 0)
+		{
+			throw std::runtime_error("Error: Expression cannot have zero operators.");
+		}
+
+		else if (numOperands == 0)
+		{
+			throw std::runtime_error("Error: Expression cannot have zero operands.");
+		}
+
+		else if (numOperators != numOperands - 1)
+		{
+			throw std::runtime_error("Error: Invalid number of operands and/or operators.");
+		}
+	}
+
+
+
+
+
+
 	Expression Expression::reverse(Expression &inExpression)
 	{
 
@@ -192,7 +268,7 @@ namespace xfix_calc
 
 
 
-	bool Expression::isOperator(char inChar)
+	bool Expression::isOperator(const char inChar) const
 	{
 		switch(inChar)
 		{
@@ -214,7 +290,7 @@ namespace xfix_calc
 
 
 
-	double Expression::calculate(double operand1, double operand2, char symbol)
+	double Expression::calculate(const double operand1, const double operand2, const char symbol)
 	{
 		double result = 0;
 
@@ -261,7 +337,7 @@ namespace xfix_calc
 
 
 
-	int Expression::precedenceCheck(char inOperator)
+	int Expression::precedenceCheck(const char inOperator)
 	{
 		if (inOperator == '^')
 		{
@@ -309,6 +385,8 @@ namespace xfix_calc
 
 		postfixExpression = this->infixToPostfix();
 
+		postfixExpression.isValid();
+
 		result = postfixExpression.evaluatePostfix();
 
 
@@ -323,6 +401,8 @@ namespace xfix_calc
 	double Expression::evaluatePostfix()
 	{
 		std::stack<int> stack;
+
+		this->isValid();
 
 		int length = this->getLength();
 		std::string tempString = "";
@@ -398,6 +478,9 @@ namespace xfix_calc
 		Expression postfixExpression;
 
 		postfixExpression = this->prefixToPostfix();
+
+		postfixExpression.isValid();
+
 		result = postfixExpression.evaluatePostfix();
 
 		return result;
@@ -412,6 +495,8 @@ namespace xfix_calc
 	{
 		std::stack<char> operatorStack;
 		Expression postfixString;
+
+		this->isValid();
 
 		int length = this->getLength();
 
@@ -510,6 +595,8 @@ namespace xfix_calc
 		Expression prefixExpression;
 		Expression reversedInfixExpression;
 
+		this->isValid();
+
 		reversedInfixExpression = reverse(*this);
 
 		postfixExpression = reversedInfixExpression.infixToPostfix();
@@ -526,6 +613,9 @@ namespace xfix_calc
 	Expression Expression::postfixToInfix()
 	{
 		std::stack<std::string> stack;
+
+		this->isValid();
+
 		int length = this->getLength();
 		Expression infixExpression;
 
@@ -598,6 +688,8 @@ namespace xfix_calc
 		std::stack<std::string> stack;
 		Expression infixExpression;
 		Expression reversedPrefixExpression;
+
+		this->isValid();
 
 		int length = this->getLength();
 		reversedPrefixExpression = reverse(*this);
@@ -673,6 +765,9 @@ namespace xfix_calc
 		Expression postfixExpression;
 
 		infixExpression = this->prefixToInfix();
+
+		infixExpression.isValid();
+
 		postfixExpression = infixExpression.infixToPostfix();
 
 		return postfixExpression;
@@ -689,6 +784,9 @@ namespace xfix_calc
 		Expression prefixExpression;
 
 		infixExpression = this->postfixToInfix();
+
+		infixExpression.isValid();
+
 		prefixExpression = infixExpression.infixToPrefix();
 
 		return prefixExpression;
