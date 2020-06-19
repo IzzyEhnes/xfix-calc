@@ -6,7 +6,7 @@
  *
  * DESCRIPTION:   xfix-calc.h is the header file for the Expression class. An Expression object
  *                consists of a string data member, 'expression,' which represents a mathematical
- *                expression (e.g. "A + B - C").
+ *                expression (e.g. "A + B - C" and "(4 ^ 3 % 6) + 12").
  *
  *                Provided the expression is valid (see description of isValid function for what
  *                is and is not considered a valid expression form), the class member functions allow
