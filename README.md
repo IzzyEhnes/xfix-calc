@@ -1,4 +1,4 @@
-# Expression Notation Converter/Calculator
+# Xfix-calc: An Expression Notation Converter/Calculator
 A C++ console program to convert infix, postfix, and prefix notation mathematical expressions into other notations, as well as calculate answers for infix, postfix, and prefix expressions.
 
 ## Table of Contents
